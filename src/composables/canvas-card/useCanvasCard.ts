@@ -30,11 +30,16 @@ export function useCard<T extends CardData, U extends Card<T>>(
     return JSON.parse(JSON.stringify(cardContent.value?.data))
   }
 
+  const getDataProp = (prop: keyof T): T[keyof T] | undefined => {
+    return cardContent.value?.data[prop]
+  }
+
   return {
     cardBody,
     cardContent,
     initCardView,
     setData,
     getData,
+    getDataProp,
   }
 }

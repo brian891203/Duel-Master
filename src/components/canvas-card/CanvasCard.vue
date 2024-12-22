@@ -131,6 +131,7 @@ const {
   initCardView: initFrontCardView,
   setData: _setFrontCardData,
   getData: _getFrontCardData,
+  getDataProp: _getFrontCardDataProp,
 } = useCard(frontCardConstructor, 'frontCardElementRef')
 
 const {
@@ -148,8 +149,8 @@ const isFrontSide = ref(false) // 當前卡片正面是否為卡面 (front)
 const canClickFlip = ref(true) // 是否可以翻面
 const scale = ref(frontCardData.scale as number) // 縮放比例
 const hasHelpInfo = ref(false) // 是否顯示幫助資訊
-const helpInfoName = ref('') // 幫助資訊名稱
-const helpInfoDescription = ref('') // 幫助資訊描述
+const helpInfoName = computed(() => _getFrontCardDataProp('name')) // 幫助資訊名稱
+const helpInfoDescription = computed(() => _getFrontCardDataProp('description')) // 幫助資訊描述
 
 // computed //
 const actualScale = computed(() => scale.value * window.devicePixelRatio) // 實際渲染時的縮放比例
@@ -162,8 +163,6 @@ const boxShadow = computed(() => {
 onMounted(() => {
   initFrontCardView(frontCardData)
   _setFrontCardData({ scale: actualScale.value })
-  helpInfoName.value = frontCardData.name || ''
-  helpInfoDescription.value = frontCardData.description || ''
   initBackCardView(backCardData)
   _setBackCardData({ scale: actualScale.value })
   if (cardElementRef.value) {
@@ -176,8 +175,6 @@ const setFrontCardData = (cardData: Partial<FrontCardData>) => {
   delete cardData.scale
   setCardImg(cardData) // 自動設定圖片
   _setFrontCardData(cardData)
-  helpInfoName.value = cardData.name || ''
-  helpInfoDescription.value = cardData.description || ''
 }
 
 const setBackCardData = (cardData: Partial<BackCardData>) => {
