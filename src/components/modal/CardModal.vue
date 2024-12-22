@@ -147,8 +147,8 @@ const setCardInfo = (cardInfo: Partial<CardInfo>) => {
   }
 }
 
-const resultObtained = () => {
-  isResultObtained.value = true
+const setResultObtained = (obtained: boolean) => {
+  isResultObtained.value = obtained
 }
 
 // expose //
@@ -160,7 +160,7 @@ defineExpose({
   closeModal,
   setCardInfo,
   getCardInfo,
-  resultObtained,
+  setResultObtained,
 })
 </script>
 

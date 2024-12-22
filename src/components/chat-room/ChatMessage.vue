@@ -101,7 +101,7 @@ onMounted(() => {
     canvasCardRef.value?.flip('front')
     canvasCardRef.value?.enableClickFlip(false)
   }
-  cardModalRef.value?.resultObtained()
+  cardModalRef.value?.setResultObtained(true)
 })
 </script>
 

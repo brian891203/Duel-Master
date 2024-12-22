@@ -87,6 +87,7 @@ const handleFileUpload = async (file: File) => {
   const systemMessage = createSimpleMessage('System', '好的，沒有問題🫡')
   currentConversation.value.messages.push(systemMessage)
   await sleep(500)
+  cardModalRef.value?.setResultObtained(false)
   await cardModalRef.value?.showModal()
   await sleep(500)
   await cardModalRef.value?.cardLeaving()
@@ -94,7 +95,7 @@ const handleFileUpload = async (file: File) => {
   const { data } = await translatePromise
   if (data.success) {
     cardModalRef.value?.setCardInfo({ frontCardData: data.frontCardData })
-    cardModalRef.value?.resultObtained()
+    cardModalRef.value?.setResultObtained(true)
   }
   await cardModalRef.value?.cardEntering()
   if (data.success) {
