@@ -1,9 +1,9 @@
 // * enum (FRONT) * //
 
-// !: 僅保留繁中 ('sc')
+// !: Only keep 'sc'
 export type Language = 'sc' | 'tc' | 'jp' | 'kr' | 'en' | 'astral'
 
-// !: 僅保留必要字體 ('custom2')
+// ! Only keep 'custom2' and ''
 export type Font = 'custom1' | 'custom2' | ''
 
 export type Align = 'left' | 'center' | 'right' | ''
