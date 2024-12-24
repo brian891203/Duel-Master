@@ -1,48 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from typing import TypedDict, Union, Literal
-
-
-# export type TranslateAPIResponse =
-#   | { success: true; frontCardData: Partial<FrontCardData> }
-#   | { success: false; errMessage: string }
-
-
-class TranslateSuccessResponse(TypedDict):
-    success: Literal[True]
-    frontCardData: dict[str, str]
-
-
-class TranslateFailureResponse(TypedDict):
-    success: Literal[False]
-    errMessage: str
-
-
-TranslateAPIResponse = Union[TranslateSuccessResponse, TranslateFailureResponse]
-
-
-# export type QuestionAPIResponse =
-# | { success: true; answer: string }
-# | { success: false; errMessage: string }
-
-
-class QuestionSuccessResponse(TypedDict):
-    success: Literal[True]
-    answer: str
-
-
-class QuestionFailureResponse(TypedDict):
-    success: Literal[False]
-    errMessage: str
-
-
-QuestionAPIResponse = Union[QuestionSuccessResponse, QuestionFailureResponse]
-
+from shared_types import TranslateAPIResponse, QuestionAPIResponse, FrontCardData
 
 app = Flask(__name__)
 CORS(app)
 
-mock_front_card_data = {
+mock_front_card_data: FrontCardData = {
     "name": "灰流麗",
     "attribute": "fire",
     "level": 3,
