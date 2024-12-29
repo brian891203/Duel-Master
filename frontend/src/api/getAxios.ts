@@ -5,6 +5,6 @@ export const yugiohImageAPI = axios.create({
   baseURL: API.YUGIOH_IMAGE,
 })
 
-export const yugiohAImodelAPI = axios.create({
-  baseURL: API.YUGIOH_AI_MODEL,
+export const yugiohBackendAPI = axios.create({
+  baseURL: API.YUGIOH_BACKEND,
 })

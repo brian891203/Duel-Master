@@ -7,31 +7,35 @@
     git clone git@github.com:RogelioKG/Duel-Master.git
     ```
 
-2. copy the contents of [this yugioh-card assets directory][yugioh card assets] to `src/assets/yugioh-card`
+2. copy the contents of [this yugioh-card assets directory][yugioh card assets] to `backend/assets/yugioh-card`
 
 ## Frontend
 
+### Using `npm`
+
+1. install dependencies
+    ```
+    cd Duel-Master/frontend
+    npm install
+    ```
+
+2. run
+    ```
+    npm run dev
+    ```
+
 ### Using `pnpm`
 
-1. install pnpm
+1. install dependencies
     ```
-    npm install -g pnpm
-    ```
-
-2. install dependencies
-    ```
-    cd Duel-Master
+    cd Duel-Master/frontend
     pnpm install
     ```
 
-3. run
+2. run
     ```
     pnpm dev
     ```
-
-### Using `npm`
-
-1. 這裡不歡迎 npm (欸🥺？這樣是可以的嗎？)
 
 ## Backend (testing)
 

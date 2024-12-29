@@ -1,0 +1,19 @@
+# -----------------------
+# Python / Flask Backend
+# -----------------------
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py[cd]
+*.egg-info/
+.egg/
+.env
+instance/
+
+# -----------------------
+# Assets folder for yugioh cards
+# -----------------------
+yugioh-card/

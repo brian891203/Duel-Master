@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from shared_types import TranslateAPIResponse, QuestionAPIResponse, FrontCardData
 
@@ -16,6 +16,7 @@ mock_front_card_data: FrontCardData = {
 }
 
 
+# 翻譯 API
 @app.route("/api/translate", methods=["POST"])
 def translate_api():
     if "image" not in request.files:
@@ -35,6 +36,7 @@ def translate_api():
     return jsonify(response)
 
 
+# 問答 API
 @app.route("/api/question", methods=["POST"])
 def question_api():
     if not request.data:
@@ -52,6 +54,12 @@ def question_api():
     }
 
     return jsonify(response)
+
+
+# 材質包路由
+@app.route("/assets/yugioh-card/<path:filename>")
+def serve_material(filename):
+    return send_from_directory("assets/yugioh-card", filename)
 
 
 if __name__ == "__main__":
