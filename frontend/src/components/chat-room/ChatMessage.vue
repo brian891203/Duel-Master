@@ -75,8 +75,8 @@ const canvasCardRef = useTemplateRef('canvasCardRef')
 const cardModalRef = useTemplateRef('cardModalRef')
 
 // computed //
-// 防止 XSS 攻擊
 const sanitizedMessageText = computed(() => {
+  // 防止 XSS 攻擊
   return DOMPurify.sanitize(props.message.text.replace(/\n/g, '<br>'))
 })
 
@@ -105,7 +105,7 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="css">
 .message {
   margin: var(--spacing-sm);
   display: flex;

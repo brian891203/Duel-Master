@@ -21,34 +21,30 @@ import { isImage } from '../../utils/misc/file'
 import UploadButton from '../button/UploadButton.vue'
 import SendIcon from '../lordicon/SendIcon.vue'
 
+// template ref //
+const textarea = useTemplateRef<HTMLTextAreaElement>('textarea')
+
+// ref //
+const newMessage = ref('')
+
+// emit //
 const emit = defineEmits<{
   (e: 'send', message: string): void
   (e: 'upload', file: File): void
 }>()
 
-const newMessage = ref('')
-const textarea = useTemplateRef<HTMLTextAreaElement>('textarea')
-
+// methods //
 const adjustTextareaHeight = async () => {
   await nextTick()
   if (textarea.value) {
-    // Reset height to auto first to get the correct scrollHeight
     textarea.value.style.height = 'auto'
-
-    // Get the scroll height and set the new height
     const scrollHeight = textarea.value.scrollHeight
     const newHeight = newMessage.value.trim()
       ? `${Math.min(Math.max(scrollHeight, 40), 150)}px`
       : '40px'
-
     textarea.value.style.height = newHeight
   }
 }
-
-// Watch for changes in the message content
-watch(newMessage, () => {
-  adjustTextareaHeight()
-})
 
 const handleKeydown = (e: KeyboardEvent) => {
   if (e.key === 'Enter') {
@@ -75,9 +71,14 @@ const sendMessage = () => {
 const handleFileUpload = (file: File) => {
   emit('upload', file)
 }
+
+// watch //
+watch(newMessage, () => {
+  adjustTextareaHeight()
+})
 </script>
 
-<style scoped>
+<style scoped lang="css">
 .chat-input {
   display: flex;
   gap: var(--spacing-sm);

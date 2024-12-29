@@ -22,6 +22,7 @@ export function useCard<T extends CardData, U extends Card<T>>(
       })
     }
   }
+
   const setData = (cardData: Partial<T>) => {
     cardContent.value?.setData(cardData)
   }

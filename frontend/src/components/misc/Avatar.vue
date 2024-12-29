@@ -26,7 +26,7 @@ const initials = computed(() => generateInitials(props.name))
 const sizeClass = computed(() => `avatar-${props.size}`)
 </script>
 
-<style scoped>
+<style scoped lang="css">
 .avatar {
   border-radius: 50%;
   overflow: hidden;

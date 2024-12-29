@@ -51,7 +51,7 @@ const handleFileUpload = (file: File) => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="css">
 .file-upload {
   position: relative;
 }

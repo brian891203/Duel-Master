@@ -1,6 +1,6 @@
 import { AVATAR_URLS } from '../../config'
 import type { CardInfo, Message, Sender } from '../../types'
-import { createObjectURL } from '../misc/file'
+import { fileToBase64 } from '../misc/file'
 
 export function createSimpleMessage(sender: Sender, text: string): Message {
   return {
@@ -30,7 +30,7 @@ export async function createFileMessage(
         name: file.name,
         size: file.size,
         type: file.type,
-        url: await createObjectURL(file), // * Base64 encoded image
+        url: await fileToBase64(file), // * Base64 encoded image
         isImage,
       },
     },

@@ -108,7 +108,7 @@ const handleFileUpload = async (file: File) => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="css">
 .chat-container {
   position: relative;
   height: 100%;
