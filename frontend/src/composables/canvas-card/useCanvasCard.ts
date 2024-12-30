@@ -1,6 +1,6 @@
 import { ref, useTemplateRef } from 'vue'
 import type { Card, CardData, Entity } from 'yugioh-card'
-import { PATH } from '../../config'
+import { API } from '../../config'
 
 export function useCard<T extends CardData, U extends Card<T>>(
   CardConstructor: new (args: Entity<T>) => U,
@@ -18,7 +18,7 @@ export function useCard<T extends CardData, U extends Card<T>>(
       cardContent.value = new CardConstructor({
         view: cardBody.value,
         data: cardData, // 在 constructor 中 Object.assign 給 this.data
-        resourcePath: PATH.YUGIOH_CARD_ASSETS,
+        resourcePath: API.YUGIOH_MATERIAL,
       })
     }
   }

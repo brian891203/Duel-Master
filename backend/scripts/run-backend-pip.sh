@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # create virtual environment
-cd backend
 python3 -m venv .venv
 
 # activate virtual environment

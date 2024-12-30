@@ -2,7 +2,7 @@
   <main>
     <video
       class="parallax-p100"
-      :src="`${PATH.YUGIOH_RESOURCES}/yugioh-bg.mp4`"
+      :src="`${PATH.YUGIOH_RESOURCES_DIR}/yugioh-bg.mp4`"
       autoplay
       muted
       loop

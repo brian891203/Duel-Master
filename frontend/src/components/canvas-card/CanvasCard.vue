@@ -241,12 +241,14 @@ const enableClickFlip = (enable: boolean) => {
 const enableHelpInfo = async (enable: boolean, delay: number = 0) => {
   // 切換前 transform 要保持同步
   const helpInfoChange = () => {
-    if (enable) {
-      helpElementRef.value!.style.transform = backCardElementRef.value!.style.transform
-    } else {
-      backCardElementRef.value!.style.transform = helpElementRef.value!.style.transform
+    if (helpElementRef.value && backCardElementRef.value) {
+      if (enable) {
+        helpElementRef.value.style.transform = backCardElementRef.value.style.transform
+      } else {
+        backCardElementRef.value.style.transform = helpElementRef.value.style.transform
+      }
+      hasHelpInfo.value = enable
     }
-    hasHelpInfo.value = enable
   }
 
   if (!delay) {

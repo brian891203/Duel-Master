@@ -16,7 +16,7 @@ export const sizeToScale = (size: Dimension) => {
 export const setCardImg = (partialFrontCard: Partial<FrontCardData>) => {
   // 幫你設定好 image (URL)
   if (partialFrontCard.password) {
-    partialFrontCard.image = `${API.YUGIOH_IMAGE}/${partialFrontCard.password}.jpg`
+    partialFrontCard.image = `${API.YUGIOH_IMAGE}/${partialFrontCard.password}`
   }
 }
 

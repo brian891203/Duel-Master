@@ -16,4 +16,7 @@ instance/
 # -----------------------
 # Assets folder for yugioh cards
 # -----------------------
-yugioh-card/
+assets/yugioh-card/*
+assets/card-image/*
+!assets/yugioh-card/.gitkeep
+!assets/card-image/.gitkeep

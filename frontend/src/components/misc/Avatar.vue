@@ -1,6 +1,6 @@
 <template>
   <div class="avatar" :class="sizeClass">
-    <img v-if="src" :src="src" :alt="name" />
+    <img v-if="src" :src="src" />
     <div v-else class="avatar-initials">{{ initials }}</div>
   </div>
 </template>

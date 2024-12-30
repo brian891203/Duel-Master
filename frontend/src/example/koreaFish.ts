@@ -13,7 +13,7 @@ export default {
   type: 'spell',
   attribute: '',
   icon: 'quick-play',
-  image: `${PATH.YUGIOH_RESOURCES}/korea-fish.jpg`,
+  image: `${PATH.YUGIOH_RESOURCES_DIR}/korea-fish.jpg`,
   cardType: 'normal',
   pendulumType: 'normal-pendulum',
   level: 0,

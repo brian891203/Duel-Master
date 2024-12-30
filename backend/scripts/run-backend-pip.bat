@@ -1,5 +1,3 @@
-pushd backend
-
 :: create virtual environment
 if not exist .venv (
   python -m venv .venv
@@ -12,4 +10,4 @@ call .venv\Scripts\activate
 pip install -r requirements.txt
 
 :: run the app | deactivate virtual environment
-python app.py & call .venv\Scripts\deactivate & popd
+python app.py & call .venv\Scripts\deactivate

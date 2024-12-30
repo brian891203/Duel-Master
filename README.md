@@ -65,4 +65,102 @@
         source scripts/run-backend.sh
         ```
 
+## API Doc
+### Translate API
+  ```json
+  [API]: /api/translate
+  [HTTP method]: POST
+  [Request Headers]:
+    {
+      "Content-Type": "multipart/form-data",
+    }
+  [Request Parameters]:
+    {
+      "image": formData
+    }
+  [Response (Success)]:
+    {
+      "success": true,
+      "frontCardData": {
+        "name": "灰流麗",
+        "attribute": "fire",
+        "level": 3,
+        "monsterType": "不死族",
+        "atk": 0,
+        "def": 1800,
+        "description": "「灰流麗」的效果...",
+      },
+    }
+  [Response (Failure)]:
+    {
+      "success": false,
+      "errMessage": "(翻譯過程出錯)",
+    }
+  ```
+### Question API
+  ```json
+  [API]: /api/question
+  [HTTP method]: POST
+  [Request Headers]:
+    {
+      "Content-Type": "text/plain",
+    }
+  [Request Body]:
+    text
+  [Response (Success)]:
+    {
+      "success": true,
+      "answer": "(問答結果)",
+    }
+  [Response (Failure)]:
+    {
+      "success": false,
+      "errMessage": "(問答過程出錯)",
+    }
+  ```
+
+### Assets: Material API
+  ```json
+  [API]: /api/assets/material
+  [HTTP method]: POST
+  [Request Headers]:
+    {
+      "Content-Type": "...",
+    }
+  [Request Body]:
+    text
+  [Response (Success)]:
+    {
+      "success": true,
+      "answer": "(問答結果)",
+    }
+  [Response (Failure)]:
+    {
+      "success": false,
+      "errMessage": "(問答過程出錯)",
+    }
+  ```
+
+### Assets: Image API
+  ```json
+  [API]: /api/assets/image
+  [HTTP method]: POST
+  [Request Headers]:
+    {
+      "Content-Type": "...",
+    }
+  [Request Body]:
+    text
+  [Response (Success)]:
+    {
+      "success": true,
+      "answer": "(問答結果)",
+    }
+  [Response (Failure)]:
+    {
+      "success": false,
+      "errMessage": "(問答過程出錯)",
+    }
+  ```
+
 [yugioh card assets]: https://github.com/kooriookami/yugioh-card/tree/master/src/assets/yugioh-card

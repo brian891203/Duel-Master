@@ -1,19 +1,21 @@
-type ApiKey = 'YUGIOH_DATA' | 'YUGIOH_IMAGE' | 'YUGIOH_BACKEND'
-type PathKey = 'YUGIOH_CARD_ASSETS' | 'YUGIOH_RESOURCES'
+type ApiKey = 'AVATAR' | 'YUGIOH_DATA' | 'YUGIOH_BACKEND' | 'YUGIOH_IMAGE' | 'YUGIOH_MATERIAL'
+type PathKey = 'YUGIOH_RESOURCES_DIR'
 
 export const API: Record<ApiKey, string> = {
-  YUGIOH_DATA: import.meta.env.VITE_YUGIOH_DATA_API,
-  YUGIOH_IMAGE: import.meta.env.VITE_YUGIOH_IMAGE_API,
+  AVATAR: "https://api.dicebear.com/7.x",
+  YUGIOH_DATA: "https://db.ygoprodeck.com/api/v7/cardinfo.php", // ! Not used yet
   YUGIOH_BACKEND: import.meta.env.VITE_YUGIOH_BACKEND_API,
+  YUGIOH_IMAGE: `${import.meta.env.VITE_YUGIOH_BACKEND_API}/api/assets/card-image`,
+  YUGIOH_MATERIAL: `${import.meta.env.VITE_YUGIOH_BACKEND_API}/api/assets/yugioh-card`,
 } as const
+
 export const PATH: Record<PathKey, string> = {
-  YUGIOH_CARD_ASSETS: import.meta.env.VITE_YUGIOH_CARD_ASSETS,
-  YUGIOH_RESOURCES: import.meta.env.VITE_YUGIOH_RESOURCES,
+  YUGIOH_RESOURCES_DIR: import.meta.env.VITE_YUGIOH_RESOURCES_DIR,
 } as const
 
 export const AVATAR_URLS = {
-  System: 'https://api.dicebear.com/7.x/bottts/svg?seed=system',
-  You: 'https://api.dicebear.com/7.x/avataaars/svg?seed=chickenattack',
+  System: `${API.AVATAR}/bottts/svg?seed=system`,
+  You: `${API.AVATAR}/avataaars/svg?seed=chickenattack`,
 } as const
 
 export const CARD_LEAVING_MS = 2500

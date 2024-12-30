@@ -13,7 +13,7 @@ export default {
   type: 'spell',
   attribute: '',
   icon: '',
-  image: `${PATH.YUGIOH_RESOURCES}/poo-labor.jpg`,
+  image: `${PATH.YUGIOH_RESOURCES_DIR}/poo-labor.jpg`,
   cardType: 'normal',
   pendulumType: 'normal-pendulum',
   level: 0,

@@ -20,16 +20,4 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  server: {
-    host: true,
-    port: 3001,
-    proxy: {
-      '/cards': {
-        target: 'https://images.ygoprodeck.com/images/cards_cropped',
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/cards/, ''),
-      },
-    },
-  },
 })
