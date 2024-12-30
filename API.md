@@ -13,7 +13,7 @@
     }
   [Response Headers]:
     {
-      "Content-Type": "application/ini",
+      "Content-Type": "application/json",
     }
   [Response Body (Success)]:
     {
@@ -46,7 +46,7 @@
     text
   [Response Headers]:
     {
-      "Content-Type": "application/ini",
+      "Content-Type": "application/json",
     }
   [Response Body (Success)]:
     {
