@@ -6,7 +6,7 @@ export const API: Record<ApiKey, string> = {
   YUGIOH_DATA: "https://db.ygoprodeck.com/api/v7/cardinfo.php", // ! Not used yet
   YUGIOH_BACKEND: import.meta.env.VITE_YUGIOH_BACKEND_API,
   YUGIOH_IMAGE: `${import.meta.env.VITE_YUGIOH_BACKEND_API}/api/assets/card-image`,
-  YUGIOH_MATERIAL: `${import.meta.env.VITE_YUGIOH_BACKEND_API}/api/assets/yugioh-card`,
+  YUGIOH_MATERIAL: `${import.meta.env.VITE_YUGIOH_BACKEND_API}/api/assets/card-material`,
 } as const
 
 export const PATH: Record<PathKey, string> = {

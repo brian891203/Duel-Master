@@ -6,4 +6,4 @@ class API(Enum):
 
 class PATH(Enum):
     YUGIOH_IMAGE_DIR = "./assets/card-image"
-    YUGIOH_MATERIAL_DIR = "./assets/yugioh-card"
+    YUGIOH_MATERIAL_DIR = "./assets/card-material"

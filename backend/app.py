@@ -66,7 +66,7 @@ def question_api():
 
 
 # 卡片材質包路由
-@app.route("/api/assets/yugioh-card/<path:filepath>")
+@app.route("/api/assets/card-material/<path:filepath>")
 def serve_card_material(filepath: str):
     return send_from_directory(PATH.YUGIOH_MATERIAL_DIR.value, filepath)
 
