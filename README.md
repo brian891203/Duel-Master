@@ -7,7 +7,7 @@
     git clone git@github.com:RogelioKG/Duel-Master.git
     ```
 
-2. copy the contents of [this yugioh-card assets directory][yugioh card assets] to `backend/assets/yugioh-card`
+2. copy the contents of [this yugioh-card assets directory] to [`backend/assets/card-material`](https://github.com/RogelioKG/Duel-Master/tree/main/backend/assets/card-material)
 
 ## Frontend
 
@@ -65,4 +65,5 @@
         source scripts/run-backend.sh
         ```
 
+[this yugioh-card assets directory]: https://github.com/RogelioKG/Duel-Master/releases/tag/assets
 [yugioh card assets]: https://github.com/kooriookami/yugioh-card/tree/master/src/assets/yugioh-card
