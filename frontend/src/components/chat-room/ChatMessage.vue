@@ -27,6 +27,7 @@
       <div v-else-if="message.block?.kind === 'card'" class="block-info">
         <CanvasCard
           ref="canvasCardRef"
+          class="message-card"
           :front-card-data="message.block.data.frontCardData"
           :back-card-data="message.block.data.backCardData"
           :is-tilt="true"
@@ -210,6 +211,10 @@ onMounted(() => {
 
 .message-image:hover {
   transform: scale(1.02);
+}
+
+.message-card {
+  cursor: pointer;
 }
 
 .file-link {
