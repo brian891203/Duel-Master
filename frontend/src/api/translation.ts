@@ -1,5 +1,5 @@
 import type { AxiosResponse } from 'axios'
-import type { TranslateAPIResponse } from '../types'
+import type { TranslateAPIResponse } from '../types/response'
 import { yugiohBackendAPI } from './getAxios'
 
 export function translateAPI(uploadedFile: File): Promise<AxiosResponse<TranslateAPIResponse>> {

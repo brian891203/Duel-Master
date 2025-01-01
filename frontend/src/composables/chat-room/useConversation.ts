@@ -9,6 +9,8 @@ export function useConversation() {
       title: 'Welcome Chat',
       timestamp: new Date(),
       messages: [createSimpleMessage('System', '嗨，今天想要問點啥？')],
+      mode: 'question',
+      lastPassword: '',
     },
   ])
 
@@ -20,6 +22,8 @@ export function useConversation() {
       title: `Chat ${conversations.value.length + 1}`,
       timestamp: new Date(),
       messages: [],
+      mode: 'question',
+      lastPassword: '',
     }
     conversations.value.unshift(newConversation)
     currentConversation.value = newConversation

@@ -12,6 +12,7 @@ __pycache__/
 .egg/
 .env
 instance/
+.mypy_cache/
 
 # -----------------------
 # Assets folder for yugioh cards
@@ -20,3 +21,11 @@ assets/card-material/*
 assets/card-image/*
 !assets/card-material/.gitkeep
 !assets/card-image/.gitkeep
+
+
+# -----------------------
+# Model
+# -----------------------
+model/*
+!model/README.md
+!model/LICENSE

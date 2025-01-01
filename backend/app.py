@@ -6,9 +6,14 @@ from flask import Flask, request, jsonify, send_file, send_from_directory
 from flask_cors import CORS
 
 # local module
-from src.shared_types import TranslateAPIResponse, QuestionAPIResponse, FrontCardData
-from src.utils import download_card_image, card_image_path
 from src.constants import PATH
+from src.shared_types import TranslateAPIResponse, QuestionAPIResponse
+from src.card.image import get_card_image_path, download_card_image
+from src.card.translation import (
+    image_create_url,
+    extract_text_from_image,
+    create_front_card_data,
+)
 
 
 app = Flask(__name__)
@@ -18,6 +23,7 @@ CORS(app)
 # 翻譯 API
 @app.route("/api/translate", methods=["POST"])
 def translate_api():
+
     if "image" not in request.files:
         response: TranslateAPIResponse = {
             "success": False,
@@ -25,21 +31,31 @@ def translate_api():
         }
         return jsonify(response), 400
 
-    image = request.files["image"]  # 圖片在這裡
+    # 圖片在這裡
+    image = request.files["image"]
+    image_path = f"{PATH.USER_UPLOAD_IMAGE_DIR.value}/{image.filename}"
 
-    mock_front_card_data: FrontCardData = {
-        "name": "灰流麗",
-        "attribute": "fire",
-        "level": 3,
-        "monsterType": "不死族",
-        "atk": 0,
-        "def": 1800,
-        "description": "「灰流麗」的效果1回合僅能使用1次。 包含以下效果的魔法、陷阱、怪獸效果發動時，可以從手札捨棄此卡發動。該效果無效。此效果也可以在對手回合發動。 ●從牌組將卡片加入手札的效果●從牌組將怪獸特殊召喚的效果●從牌組將卡片送入墓地的效果",
-    }
+    # 儲存檔案
+    image.save(image_path)
 
+    # 將圖片上傳到 Imgur，並回傳圖片 URL
+    url = image_create_url(image_path, image.filename, logger=app.logger)
+
+    # 處理圖片，轉成文字 (OCR)
+    jp_text_list = extract_text_from_image(url, logger=app.logger)
+
+    # 文字翻譯，產出 FrontCardData
+    front_card_data = create_front_card_data(jp_text_list)
+
+    # 刪除圖片檔
+    if os.path.exists(image_path):
+        os.remove(image_path)
+        app.logger.info(f"Image {image_path} has been deleted!")
+
+    # 產生 response
     response: TranslateAPIResponse = {
         "success": True,
-        "frontCardData": mock_front_card_data,
+        "frontCardData": front_card_data,
     }
 
     return jsonify(response)
@@ -55,7 +71,8 @@ def question_api():
         }
         return jsonify(response), 400
 
-    question_text = request.data.decode("utf-8")  # 問題在這裡
+    # 問題在這裡
+    question_text = request.data.decode("utf-8")
 
     response: QuestionAPIResponse = {
         "success": True,
@@ -65,16 +82,16 @@ def question_api():
     return jsonify(response)
 
 
-# 卡片材質包路由
+# 卡片材質 API
 @app.route("/api/assets/card-material/<path:filepath>")
 def serve_card_material(filepath: str):
     return send_from_directory(PATH.YUGIOH_MATERIAL_DIR.value, filepath)
 
 
-# 卡片圖片路由
+# 卡片圖片 API
 @app.route("/api/assets/card-image/<image_id>")
 def serve_card_image(image_id: str):
-    image_path = card_image_path(image_id)
+    image_path = get_card_image_path(image_id)
 
     # 如果圖片不存在，就下載圖片
     if not os.path.exists(image_path):
@@ -84,4 +101,5 @@ def serve_card_image(image_id: str):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=3000)  # ! debug
+    app.run(port=3000)
+    # 在 DEBUG 模式時，整個代碼會再重複執行一次

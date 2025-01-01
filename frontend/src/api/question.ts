@@ -1,5 +1,5 @@
 import type { AxiosResponse } from 'axios'
-import type { QuestionAPIResponse } from '../types'
+import type { QuestionAPIResponse } from '../types/response'
 import { yugiohBackendAPI } from './getAxios'
 
 export function questionAPI(text: string): Promise<AxiosResponse<QuestionAPIResponse>> {

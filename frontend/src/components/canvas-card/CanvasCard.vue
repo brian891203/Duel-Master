@@ -330,7 +330,7 @@ defineExpose({
 
 .help-info h3 {
   padding: 0 0 20px 0;
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
 }
 

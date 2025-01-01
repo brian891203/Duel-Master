@@ -33,7 +33,7 @@ useParallaxEffect('.parallax-p100', 1 / 100)
 
 /******************** < w320px Starts ********************/
 main {
-  filter: grayscale(50%);
+  filter: grayscale(70%);
   transition: filter 1s;
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "duel-master",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,7 +11,7 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint src/ --fix",
     "format": "prettier --config .prettierrc.json --write src/",
-    "copy": "robocopy src/assets/resources dist/assets/resources /MIR"
+    "copy-resources": "robocopy src/assets/resources dist/assets/resources /MIR"
   },
   "dependencies": {
     "@vueuse/core": "^12.0.0",

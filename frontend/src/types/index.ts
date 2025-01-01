@@ -1,16 +1,6 @@
 import type { BackCardData, FrontCardData } from 'yugioh-card'
 import CanvasCard from '../components/canvas-card/CanvasCard.vue'
 
-// * API Response * //
-export type TranslateAPIResponse =
-  | { success: true; frontCardData: Partial<FrontCardData> }
-  | { success: false; errMessage: string }
-
-export type QuestionAPIResponse =
-  | { success: true; answer: string }
-  | { success: false; errMessage: string }
-
-// * Other Types * //
 export type CanvasCardType = InstanceType<typeof CanvasCard>
 
 export type DataTypesChecker = string[] | ((types: readonly string[]) => boolean)
@@ -45,7 +35,10 @@ export interface Conversation {
   id: string
   title: string
   messages: Message[]
-  timestamp: Date
+  timestamp: Date,
+  mode: 'translation' | 'question'
+  lastPassword: string
+  lastFile?: File
 }
 
 export interface User {

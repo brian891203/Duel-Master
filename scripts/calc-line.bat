@@ -1,1 +1,1 @@
-cloc . --exclude-dir=node_modules,dist,public,.venv,assets --exclude-ext=yaml,json,svg,md,lock,toml
+cloc . --exclude-dir=node_modules,dist,public,.venv,assets --exclude-ext=yaml,json,svg,md,lock,toml,txt

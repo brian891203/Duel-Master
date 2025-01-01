@@ -9,7 +9,8 @@ export const fileToBase64 = (file: File): Promise<string> => {
 }
 
 export const isImage = (types: readonly string[]): boolean => {
-  return types.every((type) => type.startsWith('image'))
+  // * 因為 Imgur 不支援 upload webp 格式，所以這裡要排除 webp
+  return types.every((type) => type.startsWith('image') && type !== 'image/webp')
 }
 
 export const checkDataTypes = (types: string | string[], dataTypes: DataTypesChecker): boolean => {
