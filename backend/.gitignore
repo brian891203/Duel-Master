@@ -19,7 +19,7 @@ instance/
 # -----------------------
 assets/card-material/*
 assets/card-image/*
-!assets/card-material/.gitkeep
+!assets/card-material/README.md
 !assets/card-image/.gitkeep
 
 

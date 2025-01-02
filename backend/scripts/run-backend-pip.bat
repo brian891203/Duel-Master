@@ -9,5 +9,5 @@ call .venv\Scripts\activate
 :: install dependencies
 pip install -r requirements.txt
 
-:: run the app | deactivate virtual environment
-python app.py & call .venv\Scripts\deactivate
+:: run the app
+python app.py

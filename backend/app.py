@@ -76,7 +76,7 @@ def question_api():
 
     response: QuestionAPIResponse = {
         "success": True,
-        "answer": f"Your question '{question_text}' has been successfully processed.",
+        "answer": f"嗯...我知道你問了「{question_text}」，但拍謝，問答功能還在開發中噢！",
     }
 
     return jsonify(response)
