@@ -315,6 +315,8 @@ defineExpose({
 /* HELP INFO */
 
 .help-info {
+  display: flex;
+  flex-direction: column;
   position: relative;
   width: 100%;
   height: 100%;
@@ -324,13 +326,13 @@ defineExpose({
   font-size: 1.5rem;
   color: var(--primary-color);
   border-radius: 6px;
-  padding: 50px;
+  padding: 40px;
   font-family: 'Noto Sans TC';
 }
 
 .help-info h3 {
   padding: 0 0 20px 0;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
 }
 
@@ -344,9 +346,11 @@ defineExpose({
 }
 
 .help-info p {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 300;
   text-align: justify;
+  padding: 0 10px;
+  overflow-y: auto;
 }
 
 .close-btn {
