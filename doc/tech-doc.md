@@ -4,7 +4,7 @@
 
 
 
-## ▶️ Outline
+## [▶️][0] Outline
 + **[Setup Guide][1]**
 + **[Running the Project][2]**
   + **[Frontend][2-1]**
