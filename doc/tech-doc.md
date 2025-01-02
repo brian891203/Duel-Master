@@ -203,9 +203,9 @@ pnpm copy-resources
     - 使用者 (frontend) : 可上傳有卡片的圖片內容
     - 模型 (backend) : 回傳翻譯結果
   - 🟢 卡片顯示功能
-    - 功能 (frontend) : 翻譯結果會以 [canvas 卡片][yugioh canvas card]呈現
+    - 功能 (frontend) : 翻譯結果會以 [canvas 卡片]呈現
   - 🟢 詳細資訊功能 
-    - 功能 (backend) : 使用者給定密碼，並從 [ygoprodeck API] 中抓取資料更詳細資訊 (用於 [canvas 卡片][yugioh canvas card]呈現)
+    - 功能 (backend) : 使用者給定密碼，並從 [ygoprodeck API] 中抓取資料更詳細資訊 (用於 [canvas 卡片]呈現)
       - 比如卡面圖片、ATK、DEF、cardType、pendulumType 等等
 #### 問答模式 (Q&A mode)
   - 🟢 問答功能
@@ -222,8 +222,8 @@ pnpm copy-resources
 
 > ...
 
-
-
+[canvas 卡片]: https://github.com/kooriookami/yugioh-card
+[ygoprodeck API]: https://ygoprodeck.com/api-guide/
 
 
 ## [⬆️][0] API
