@@ -4,6 +4,6 @@
 [![Licence](https://img.shields.io/github/license/RogelioKG/Duel-Master)](./LICENSE)
 
 ## Brief
-An AI-powered chatroom for translating Yu-Gi-Oh cards and asnwering related questions.
+An AI-powered chatroom for translating Yu-Gi-Oh cards and answering related questions.
 
-![duel-master-demo](https://i.imgur.com/aL71ZRR.gif)
+<video autoplay muted loop plays-inline src="https://github.com/user-attachments/assets/92b08aa9-b726-4219-aad2-e905a9980c2a"></video>
