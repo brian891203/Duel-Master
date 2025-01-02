@@ -6,4 +6,4 @@
 ## Brief
 An AI-powered chatroom for translating Yu-Gi-Oh cards and asnwering related questions.
 
-![duel-master-demo](https://i.imgur.com/mI4B7qk.gif)
+![duel-master-demo](https://i.imgur.com/aL71ZRR.gif)
