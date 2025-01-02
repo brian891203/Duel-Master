@@ -99,6 +99,10 @@ cd frontend
 cd backend
 ```
 
+| 📘 <span class="note">NOTE</span>                                |
+| :-------------------------------------------------------------- |
+| `.env` 環境變數檔請和[我](mailto:rogeliokg0813@gmail.com)索取！ |
+
 #### Using `pip`
 1. run
 
