@@ -21,18 +21,18 @@
   + **[Card Material API][5-3]**
   + **[Card Image API][5-4]**
 
-[0]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#▶️-outline
-[1]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#⬆️-setup-guide
-[2]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#⬆️-running-the-project
+[0]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#%EF%B8%8F-outline
+[1]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#%EF%B8%8F-setup-guide
+[2]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#%EF%B8%8F-running-the-project
 [2-1]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#frontend
 [2-2]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#backend
-[3]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#⬆️-build
+[3]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#%EF%B8%8F-build
 [3-1]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#what
 [3-2]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#how
-[4]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#⬆️-system-requirements-specification
+[4]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#%EF%B8%8F-system-requirements-specification
 [4-1]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#functional-requirements
 [4-2]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#non-functional-requirements
-[5]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#⬆️-api
+[5]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#%EF%B8%8F-api
 [5-1]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#translate-api
 [5-2]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#question-api
 [5-3]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#card-material-api
