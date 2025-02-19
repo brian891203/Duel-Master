@@ -101,5 +101,5 @@ def serve_card_image(image_id: str):
 
 
 if __name__ == "__main__":
-    app.run(port=3000)
+    app.run(debug=True, port=3000)
     # 在 DEBUG 模式時，整個代碼會再重複執行一次

@@ -14,11 +14,15 @@ flask-cors = "^5.0.0"
 requests = "^2.32.3"
 azure-cognitiveservices-vision-computervision = "^0.9.1"
 transformers = "^4.47.1"
-torch = "2.5.1"
-
+torch = {version = "^2.6.0+cu124", source = "pytorch-cu124"}
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.14.0"
+
+[[tool.poetry.source]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+priority = "supplemental"
 
 [build-system]
 requires = ["poetry-core"]
