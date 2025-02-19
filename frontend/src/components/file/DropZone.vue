@@ -1,32 +1,22 @@
-<template>
-  <div ref="dropZoneRef" class="drop-zone">
-    <div class="drop-zone-content" :class="{ fade: isOverDropZone }">
-      <slot />
-    </div>
-    <StarryNight ref="starryNightRef"></StarryNight>
-  </div>
-</template>
-
 <script setup lang="ts">
+import type { DataTypesChecker } from '../../types'
 import { useDropZone } from '@vueuse/core'
 import { useTemplateRef, watch } from 'vue'
 import StarryNight from '../../components/starry-night/StarryNight.vue'
-import type { DataTypesChecker } from '../../types'
 
 // props //
 const props = defineProps<{
   dataTypes: DataTypesChecker
 }>()
 
-// template ref //
-const dropZoneRef = useTemplateRef('dropZoneRef')
-const starryNightRef = useTemplateRef('starryNightRef')
-
 // emit //
 // 檔案上傳事件
 const emit = defineEmits<{
   (e: 'upload', file: File): void
 }>()
+// template ref //
+const dropZoneRef = useTemplateRef('dropZoneRef')
+const starryNightRef = useTemplateRef('starryNightRef')
 
 // methods //
 function onDrop(files: File[] | null) {
@@ -38,18 +28,28 @@ function onDrop(files: File[] | null) {
 // composables //
 const { isOverDropZone } = useDropZone(dropZoneRef, {
   dataTypes: props.dataTypes,
-  onDrop: onDrop,
+  onDrop,
 })
 
 // watch //
 watch(isOverDropZone, () => {
   if (isOverDropZone.value) {
     starryNightRef.value?.enableStarryEffect()
-  } else {
+  }
+  else {
     starryNightRef.value?.disableStarryEffect()
   }
 })
 </script>
+
+<template>
+  <div ref="dropZoneRef" class="drop-zone">
+    <div class="drop-zone-content" :class="{ fade: isOverDropZone }">
+      <slot />
+    </div>
+    <StarryNight ref="starryNightRef" />
+  </div>
+</template>
 
 <style scoped lang="css">
 .drop-zone {

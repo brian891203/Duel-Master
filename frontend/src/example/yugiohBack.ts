@@ -1,4 +1,4 @@
-import { type BackCardData } from 'yugioh-card'
+import type { BackCardData } from 'yugioh-card'
 
 export default {
   type: 'normal',

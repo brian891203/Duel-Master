@@ -1,12 +1,5 @@
-<template>
-  <PosBoxButton tag="label" for="file-uploader">
-    <input type="file" id="file-uploader" @change="handleChange" />
-    <slot />
-  </PosBoxButton>
-</template>
-
 <script setup lang="ts">
-import { type DataTypesChecker } from '../../types'
+import type { DataTypesChecker } from '../../types'
 import { extractFile } from '../../utils/misc/file'
 import PosBoxButton from './PosBoxButton.vue'
 
@@ -21,13 +14,20 @@ const emit = defineEmits<{
 }>()
 
 // methods //
-const handleChange = (event: Event) => {
+function handleChange(event: Event) {
   const file = extractFile(event, props.dataTypes)
   if (file) {
     emit('upload', file)
   }
 }
 </script>
+
+<template>
+  <PosBoxButton tag="label" for="file-uploader">
+    <input id="file-uploader" type="file" @change="handleChange">
+    <slot />
+  </PosBoxButton>
+</template>
 
 <style scoped lang="css">
 #file-uploader {

@@ -1,9 +1,3 @@
-<template>
-  <BoxButton ref="fillBtnRef" :tag="tag" class="fill-btn" :class="{ active: activeR }">
-    <slot /><span :class="{ active: activeR }"></span>
-  </BoxButton>
-</template>
-
 <script setup lang="ts">
 import { toRef, useTemplateRef } from 'vue'
 import { usePositionAwareEffect } from '../../composables/effects/usePositionAwareEffect'
@@ -27,6 +21,12 @@ const fillBtnRef = useTemplateRef<HTMLElement>('fillBtnRef')
 // composables //
 usePositionAwareEffect(fillBtnRef)
 </script>
+
+<template>
+  <BoxButton ref="fillBtnRef" :tag="tag" class="fill-btn" :class="{ active: activeR }">
+    <slot /><span :class="{ active: activeR }" />
+  </BoxButton>
+</template>
 
 <style scoped lang="css">
 .fill-btn {

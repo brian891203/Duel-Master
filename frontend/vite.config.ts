@@ -1,5 +1,5 @@
-import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
+import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
@@ -9,7 +9,7 @@ export default defineConfig({
     vue({
       template: {
         compilerOptions: {
-          isCustomElement: (tag) => ['lord-icon'].includes(tag),
+          isCustomElement: tag => ['lord-icon'].includes(tag),
         },
       },
     }),

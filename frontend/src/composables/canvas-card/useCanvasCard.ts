@@ -1,5 +1,5 @@
-import { ref, useTemplateRef } from 'vue'
 import type { Card, CardData, Entity } from 'yugioh-card'
+import { ref, useTemplateRef } from 'vue'
 import { API } from '../../config'
 
 export function useCard<T extends CardData, U extends Card<T>>(

@@ -1,5 +1,5 @@
-import { ref } from 'vue'
 import type { Conversation } from '../../types'
+import { ref } from 'vue'
 import { createSimpleMessage } from '../../utils/chat-room/createMessage'
 
 export function useConversation() {
@@ -30,14 +30,15 @@ export function useConversation() {
   }
 
   const deleteConversation = (id: string) => {
-    const index = conversations.value.findIndex((c) => c.id === id)
+    const index = conversations.value.findIndex(c => c.id === id)
     if (index !== -1) {
       conversations.value.splice(index, 1)
       // If we deleted the current conversation, switch to the first available one
       if (currentConversation.value.id === id) {
         if (conversations.value.length > 0) {
           currentConversation.value = conversations.value[0]
-        } else {
+        }
+        else {
           createNewConversation()
         }
       }
@@ -45,7 +46,7 @@ export function useConversation() {
   }
 
   const selectConversation = (id: string) => {
-    const conversation = conversations.value.find((c) => c.id === id)
+    const conversation = conversations.value.find(c => c.id === id)
     if (conversation) {
       currentConversation.value = conversation
     }

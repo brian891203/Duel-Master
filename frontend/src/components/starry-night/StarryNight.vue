@@ -1,16 +1,3 @@
-<template>
-  <div class="universe">
-    <div class="universe-container" :class="{ night: animationStart }">
-      <div class="content">
-        <canvas ref="canvasRef" id="universe"></canvas>
-        <div id="footer">
-          <Night />
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { onMounted, ref, useTemplateRef } from 'vue'
 import Night from '../../components/starry-night/Night.vue'
@@ -21,13 +8,13 @@ const animationStart = ref(false)
 const canvasRef = useTemplateRef<HTMLCanvasElement>('canvasRef')
 
 // methods //
-const initNightCanvas = () => {
+function initNightCanvas() {
   if (canvasRef.value) {
     initCanvas(canvasRef.value)
   }
 }
 
-const enableStarryEffect = () => {
+function enableStarryEffect() {
   animationStart.value = true
   setEndingSignal(false)
   if (canvasRef.value) {
@@ -35,7 +22,7 @@ const enableStarryEffect = () => {
   }
 }
 
-const disableStarryEffect = () => {
+function disableStarryEffect() {
   animationStart.value = false
   setEndingSignal(true)
 }
@@ -51,6 +38,19 @@ defineExpose({
   disableStarryEffect,
 })
 </script>
+
+<template>
+  <div class="universe">
+    <div class="universe-container" :class="{ night: animationStart }">
+      <div class="content">
+        <canvas id="universe" ref="canvasRef" />
+        <div id="footer">
+          <Night />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped lang="css">
 /* THE UNIVERSE. Code adapted from https://codepen.io/Acuetouag/pen/vOgmza */

@@ -1,7 +1,7 @@
 import type { AxiosResponse } from 'axios'
+import type { DataAPIResponse } from '../types/response'
 import axios from 'axios'
 import { API } from '../config'
-import type { DataAPIResponse } from '../types/response'
 
 // YGOProDeck API
 export function dataAPI(password: string): Promise<AxiosResponse<DataAPIResponse>> {

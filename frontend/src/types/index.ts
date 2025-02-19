@@ -1,11 +1,11 @@
 import type { BackCardData, FrontCardData } from 'yugioh-card'
-import CanvasCard from '../components/canvas-card/CanvasCard.vue'
+import type CanvasCard from '../components/canvas-card/CanvasCard.vue'
 
 export type CanvasCardType = InstanceType<typeof CanvasCard>
 
 export type DataTypesChecker = string[] | ((types: readonly string[]) => boolean)
 
-export type Dimension = { width: number; height?: never } | { height: number; width?: never }
+export type Dimension = { width: number, height?: never } | { height: number, width?: never }
 
 export type Sender = 'System' | 'You'
 
@@ -28,14 +28,14 @@ export interface Message {
   sender: Sender
   timestamp: Date
   avatar?: string
-  block?: { kind: 'file'; data: FileInfo } | { kind: 'card'; data: CardInfo }
+  block?: { kind: 'file', data: FileInfo } | { kind: 'card', data: CardInfo }
 }
 
 export interface Conversation {
   id: string
   title: string
   messages: Message[]
-  timestamp: Date,
+  timestamp: Date
   mode: 'translation' | 'question'
   lastPassword: string
   lastFile?: File

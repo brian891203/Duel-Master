@@ -1,15 +1,15 @@
-<template>
-  <component :is="tag" class="base-btn">
-    <slot />
-  </component>
-</template>
-
 <script setup lang="ts">
 // props //
 const { tag } = defineProps<{
   tag: string
 }>()
 </script>
+
+<template>
+  <component :is="tag" class="base-btn">
+    <slot />
+  </component>
+</template>
 
 <style scoped lang="css">
 .base-btn {

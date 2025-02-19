@@ -4,7 +4,7 @@ import ChatContainer from '../components/chat-room/ChatContainer.vue'
 
 <template>
   <main>
-    <div class="jagged-bg"></div>
+    <div class="jagged-bg" />
     <ChatContainer />
   </main>
 </template>

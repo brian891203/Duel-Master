@@ -1,7 +1,8 @@
-import { useEventListener, type MaybeElementRef } from '@vueuse/core'
+import type { MaybeElementRef } from '@vueuse/core'
+import { useEventListener } from '@vueuse/core'
 import { onMounted } from 'vue'
 
-export const usePositionAwareEffect = (button: MaybeElementRef<HTMLElement | null>) => {
+export function usePositionAwareEffect(button: MaybeElementRef<HTMLElement | null>) {
   onMounted(() => {
     function updatePosition(this: HTMLElement, e: MouseEvent) {
       const parentOffset = this.getBoundingClientRect()

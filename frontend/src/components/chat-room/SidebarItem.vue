@@ -1,28 +1,3 @@
-<template>
-  <div
-    class="history-item"
-    :class="{
-      active: isActive,
-      'slide-in': isOpen,
-    }"
-    :style="{
-      '--delay': `${index * 0.05}s`,
-      '--distance': `${(index + 1) * 10}px`,
-    }"
-  >
-    <div class="history-item-content" @click="emit('select')">
-      <div class="history-item-header">
-        <span class="history-title">{{ conversation.title }}</span>
-        <!-- <span class="history-time">{{ formatTime(conversation.timestamp) }}</span> -->
-      </div>
-      <p class="history-preview">{{ getPreviewText(conversation) }}</p>
-    </div>
-    <button class="delete-button" @click.stop="handleDelete">
-      <CloseIcon style="color: var(--primary-color)" />
-    </button>
-  </div>
-</template>
-
 <script setup lang="ts">
 import type { Conversation } from '../../types'
 import CloseIcon from '../icon/CloseIcon.vue'
@@ -42,17 +17,44 @@ const emit = defineEmits<{
 }>()
 
 // methods //
-const getPreviewText = (conversation: Conversation): string => {
+function getPreviewText(conversation: Conversation): string {
   const lastMessage = conversation.messages[conversation.messages.length - 1]
   return lastMessage ? lastMessage.text : 'No messages'
 }
 
-const handleDelete = () => {
+function handleDelete() {
   if (confirm('Are you sure you want to delete this chat?')) {
     emit('delete')
   }
 }
 </script>
+
+<template>
+  <div
+    class="history-item"
+    :class="{
+      'active': isActive,
+      'slide-in': isOpen,
+    }"
+    :style="{
+      '--delay': `${index * 0.05}s`,
+      '--distance': `${(index + 1) * 10}px`,
+    }"
+  >
+    <div class="history-item-content" @click="emit('select')">
+      <div class="history-item-header">
+        <span class="history-title">{{ conversation.title }}</span>
+        <!-- <span class="history-time">{{ formatTime(conversation.timestamp) }}</span> -->
+      </div>
+      <p class="history-preview">
+        {{ getPreviewText(conversation) }}
+      </p>
+    </div>
+    <button class="delete-button" @click.stop="handleDelete">
+      <CloseIcon style="color: var(--primary-color)" />
+    </button>
+  </div>
+</template>
 
 <style scoped lang="css">
 .history-item {

@@ -1,4 +1,4 @@
-import type { CardType } from "yugioh-card"
+import type { CardType } from 'yugioh-card'
 
 export type ArrowTypeName = '' | 'Top' | 'Top-Right' | 'Right' | 'Bottom-Right' | 'Bottom' | 'Bottom-Left' | 'Left' | 'Top-Left'
 

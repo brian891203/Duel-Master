@@ -1,3 +1,34 @@
+<script setup lang="ts">
+import { useTemplateRef } from 'vue'
+import DropZone from '../../components/file/DropZone.vue'
+import CloseIcon from '../../components/icon/CloseIcon.vue'
+import { isImage } from '../../utils/misc/file'
+import BoxButton from '../button/BoxButton.vue'
+import FillUploadBoxButton from '../button/FillUploadBoxButton.vue'
+import BaseModal from './BaseModal.vue'
+
+// emit //
+const emit = defineEmits<{
+  (e: 'upload', file: File): void
+}>()
+
+// template ref //
+const baseModalRef = useTemplateRef('baseModalRef')
+
+// methods //
+function handleFileUpload(file: File) {
+  emit('upload', file)
+  baseModalRef.value?.closeModal()
+}
+
+// expose //
+defineExpose({
+  isShow: () => baseModalRef.value?.isShow(),
+  showModal: () => baseModalRef.value?.showModal(),
+  closeModal: () => baseModalRef.value?.closeModal(),
+})
+</script>
+
 <template>
   <BaseModal ref="baseModalRef">
     <template #header>
@@ -17,7 +48,9 @@
           </DropZone>
         </div>
         <div class="upload-block">
-          <div class="upload-block-content">or</div>
+          <div class="upload-block-content">
+            or
+          </div>
           <FillUploadBoxButton :data-types="isImage" @upload="handleFileUpload">
             Choose Photo
           </FillUploadBoxButton>
@@ -26,37 +59,6 @@
     </template>
   </BaseModal>
 </template>
-
-<script setup lang="ts">
-import { useTemplateRef } from 'vue'
-import DropZone from '../../components/file/DropZone.vue'
-import CloseIcon from '../../components/icon/CloseIcon.vue'
-import { isImage } from '../../utils/misc/file'
-import BoxButton from '../button/BoxButton.vue'
-import FillUploadBoxButton from '../button/FillUploadBoxButton.vue'
-import BaseModal from './BaseModal.vue'
-
-// template ref //
-const baseModalRef = useTemplateRef('baseModalRef')
-
-// emit //
-const emit = defineEmits<{
-  (e: 'upload', file: File): void
-}>()
-
-// methods //
-const handleFileUpload = (file: File) => {
-  emit('upload', file)
-  baseModalRef.value?.closeModal()
-}
-
-// expose //
-defineExpose({
-  isShow: () => baseModalRef.value?.isShow(),
-  showModal: () => baseModalRef.value?.showModal(),
-  closeModal: () => baseModalRef.value?.closeModal(),
-})
-</script>
 
 <style scoped lang="scss">
 .modal-body {

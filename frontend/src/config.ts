@@ -2,8 +2,8 @@ type ApiKey = 'AVATAR' | 'YUGIOH_DATA' | 'YUGIOH_BACKEND' | 'YUGIOH_IMAGE' | 'YU
 type PathKey = 'YUGIOH_RESOURCES_DIR'
 
 export const API: Record<ApiKey, string> = {
-  AVATAR: "https://api.dicebear.com/7.x",
-  YUGIOH_DATA: "https://db.ygoprodeck.com/api/v7/cardinfo.php", // ! Not used yet
+  AVATAR: 'https://api.dicebear.com/7.x',
+  YUGIOH_DATA: 'https://db.ygoprodeck.com/api/v7/cardinfo.php', // ! Not used yet
   YUGIOH_BACKEND: import.meta.env.VITE_YUGIOH_BACKEND_API,
   YUGIOH_IMAGE: `${import.meta.env.VITE_YUGIOH_BACKEND_API}/api/assets/card-image`,
   YUGIOH_MATERIAL: `${import.meta.env.VITE_YUGIOH_BACKEND_API}/api/assets/card-material`,

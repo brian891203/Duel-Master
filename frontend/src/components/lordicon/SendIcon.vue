@@ -6,6 +6,5 @@
     state="hover-roll"
     colors="primary:#f5deb3,secondary:#f9bd4d"
     style="width: 38px; height: 38px"
-  >
-  </lord-icon>
+  />
 </template>

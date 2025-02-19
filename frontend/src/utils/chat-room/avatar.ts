@@ -1,7 +1,7 @@
-export const generateInitials = (name: string): string => {
+export function generateInitials(name: string): string {
   return name
     .split(' ')
-    .map((word) => word[0])
+    .map(word => word[0])
     .join('')
     .toUpperCase()
     .slice(0, 2)

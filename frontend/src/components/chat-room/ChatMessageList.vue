@@ -1,15 +1,7 @@
-<template>
-  <div class="messages-wrapper" ref="messagesContainer">
-    <div class="messages-container">
-      <ChatMessage v-for="message in messages" :key="message.id" :message="message" />
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
+import type { Message } from '../../types'
 import { ref } from 'vue'
 import { useAutoScroll } from '../../composables/effects/useAutoScroll'
-import type { Message } from '../../types'
 import ChatMessage from './ChatMessage.vue'
 
 // props //
@@ -26,6 +18,14 @@ const { setupAutoScroll } = useAutoScroll(messagesContainer)
 // init //
 setupAutoScroll(() => props.messages)
 </script>
+
+<template>
+  <div ref="messagesContainer" class="messages-wrapper">
+    <div class="messages-container">
+      <ChatMessage v-for="message in messages" :key="message.id" :message="message" />
+    </div>
+  </div>
+</template>
 
 <style scoped lang="css">
 .messages-wrapper {

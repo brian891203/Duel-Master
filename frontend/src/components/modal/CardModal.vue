@@ -1,53 +1,8 @@
-<template>
-  <BaseModal ref="baseModalRef">
-    <template #body>
-      <div class="modal-body">
-        <div
-          class="card-container"
-          :class="{
-            'card-leaving': isCardLeaving,
-            'card-base-disappearing': isCardOnPosition,
-          }"
-        >
-          <div
-            ref="cardTranslateRef"
-            class="card-translate"
-            :class="{ 'card-leaving': isCardLeaving }"
-          >
-            <CanvasCard
-              ref="cardRef"
-              :front-card-data="cardInfo.frontCardData"
-              :back-card-data="cardInfo.backCardData"
-              :is-tilt="true"
-            >
-            </CanvasCard>
-          </div>
-        </div>
-      </div>
-    </template>
-    <template #footer>
-      <div class="modal-footer">
-        <div class="help-btn-block">
-          <PosBoxButton
-            tag="button"
-            class="rounded-30"
-            :class="{ disabled: !isResultObtained }"
-            @click="showHelpInfo"
-            :disabled="!isResultObtained"
-          >
-            <QuestionMarkIcon />
-          </PosBoxButton>
-        </div>
-      </div>
-    </template>
-  </BaseModal>
-</template>
-
 <script setup lang="ts">
+import type { CardInfo, Dimension } from '../../types'
 import { nextTick, ref, useTemplateRef } from 'vue'
 import { useResponsiveCard } from '../../composables/canvas-card/useResponsiveCard'
 import { CARD_LEAVING_MS } from '../../config'
-import type { CardInfo, Dimension } from '../../types'
 import { initBackCardData, initFrontCardData } from '../../utils/canvas-card/cardInit'
 import { sleep } from '../../utils/misc/methods'
 import PosBoxButton from '../button/PosBoxButton.vue'
@@ -73,44 +28,46 @@ const isCardOnPosition = ref(true) // 卡片是否在原位
 const isResultObtained = ref(false) // 是否已取得結果
 
 // methods //
-const flipCard = async (flipSide: 'front' | 'back', delay?: number) => {
+async function flipCard(flipSide: 'front' | 'back', delay?: number) {
   cardRef.value?.flip(flipSide, delay)
 }
 
-const showHelpInfo = () => {
+function showHelpInfo() {
   cardRef.value?.enableHelpInfo(true)
   cardRef.value?.flip('back', 100)
 }
 
-const entering = async () => {
+async function entering() {
   isCardLeaving.value = false // 卡片進場開始
   await sleep(CARD_LEAVING_MS)
   isCardOnPosition.value = true // 卡片就位
 }
 
-const leaving = async () => {
+async function leaving() {
   isCardLeaving.value = true // 卡片離場開始
   isCardOnPosition.value = false // 卡片離席
   await sleep(CARD_LEAVING_MS)
 }
 
-const cardEntering = async () => {
+async function cardEntering() {
   const rawRard = cardRef.value
-  if (!rawRard) return
+  if (!rawRard)
+    return
   rawRard.enableClickFlip(true)
   await entering() // 卡片進場
   await rawRard.flip('front') // 翻到正面
 }
 
-const cardLeaving = async () => {
+async function cardLeaving() {
   const rawRard = cardRef.value
-  if (!rawRard) return
+  if (!rawRard)
+    return
   rawRard.enableClickFlip(false)
   await rawRard.flip('back') // 翻到背面
   await leaving() // 卡片離場
 }
 
-const showModal = async () => {
+async function showModal() {
   // 先設定卡片資料
   initFrontCardData(props.cardInfo.frontCardData, props.maxSize)
   initBackCardData(props.cardInfo.backCardData, props.maxSize)
@@ -125,11 +82,11 @@ const showModal = async () => {
   cardTranslateRef.value?.style.setProperty('--card-leaving', `${CARD_LEAVING_MS}ms`)
 }
 
-const closeModal = () => {
+function closeModal() {
   baseModalRef.value?.closeModal()
 }
 
-const getCardInfo = (): CardInfo | undefined => {
+function getCardInfo(): CardInfo | undefined {
   if (cardRef.value) {
     return {
       frontCardData: cardRef.value.getFrontCardData(),
@@ -138,7 +95,7 @@ const getCardInfo = (): CardInfo | undefined => {
   }
 }
 
-const setCardInfo = (cardInfo: Partial<CardInfo>) => {
+function setCardInfo(cardInfo: Partial<CardInfo>) {
   if (cardInfo.frontCardData) {
     cardRef.value?.setFrontCardData(cardInfo.frontCardData)
   }
@@ -147,7 +104,7 @@ const setCardInfo = (cardInfo: Partial<CardInfo>) => {
   }
 }
 
-const setResultObtained = (obtained: boolean) => {
+function setResultObtained(obtained: boolean) {
   isResultObtained.value = obtained
 }
 
@@ -163,6 +120,50 @@ defineExpose({
   setResultObtained,
 })
 </script>
+
+<template>
+  <BaseModal ref="baseModalRef">
+    <template #body>
+      <div class="modal-body">
+        <div
+          class="card-container"
+          :class="{
+            'card-leaving': isCardLeaving,
+            'card-base-disappearing': isCardOnPosition,
+          }"
+        >
+          <div
+            ref="cardTranslateRef"
+            class="card-translate"
+            :class="{ 'card-leaving': isCardLeaving }"
+          >
+            <CanvasCard
+              ref="cardRef"
+              :front-card-data="cardInfo.frontCardData"
+              :back-card-data="cardInfo.backCardData"
+              :is-tilt="true"
+            />
+          </div>
+        </div>
+      </div>
+    </template>
+    <template #footer>
+      <div class="modal-footer">
+        <div class="help-btn-block">
+          <PosBoxButton
+            tag="button"
+            class="rounded-30"
+            :class="{ disabled: !isResultObtained }"
+            :disabled="!isResultObtained"
+            @click="showHelpInfo"
+          >
+            <QuestionMarkIcon />
+          </PosBoxButton>
+        </div>
+      </div>
+    </template>
+  </BaseModal>
+</template>
 
 <style scoped lang="css">
 .help-btn-block {

@@ -1,9 +1,13 @@
 // * enum (FRONT) * //
 
-// !: Only keep 'sc'
+/**
+ *! CAUTION: only keep 'sc'
+ */
 export type Language = 'sc' | 'tc' | 'jp' | 'kr' | 'en' | 'astral'
 
-// ! Only keep 'custom2' and ''
+/**
+ *! CAUTION: only keep 'custom2' and ''
+ */
 export type Font = 'custom1' | 'custom2' | ''
 
 export type Align = 'left' | 'center' | 'right' | ''
@@ -32,7 +36,9 @@ export type PendulumType =
   | 'synchro-pendulum'
   | 'xyz-pendulum'
 
-// 上 | 右上 | 右 | 右下 | 下 | 左下 | 左 | 左上
+/**
+ * 上 | 右上 | 右 | 右下 | 下 | 左下 | 左 | 左上
+ */
 export type ArrowType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 
 export type Copyright = 'sc' | 'jp' | 'en' | ''
@@ -104,7 +110,7 @@ export interface BackCardData extends CardData {
 
 // * entity * //
 
-export type Entity<T extends CardData> = {
+export interface Entity<T extends CardData> {
   view: HTMLElement
   data: Partial<T>
   resourcePath: string
@@ -112,7 +118,9 @@ export type Entity<T extends CardData> = {
 
 // * card * //
 
-// https://github.com/kooriookami/yugioh-card/blob/master/packages/yugioh-card/src/card/index.js
+/**
+ * More Info: [kooriookami/yugioh-card/src/card/index.js](https://github.com/kooriookami/yugioh-card/blob/master/packages/yugioh-card/src/card/index.js)
+ */
 export class Card<T extends CardData> {
   constructor(entity: Entity<T>)
   data: T
@@ -121,18 +129,26 @@ export class Card<T extends CardData> {
 
 // * card (FRONT) * //
 
-// https://github.com/kooriookami/yugioh-card/blob/master/packages/yugioh-card/src/yugioh-card/index.js
+/**
+ * More Info: [kooriookami/packages/yugioh-card/src/yugioh-card/index.js](https://github.com/kooriookami/yugioh-card/blob/master/packages/yugioh-card/src/yugioh-card/index.js)
+ */
 export class YugiohCard extends Card<FrontCardData> {}
 
-// ! 不保留 YugiohSeries2Card
-// https://github.com/kooriookami/yugioh-card/blob/master/packages/yugioh-card/src/yugioh-series-2-card/index.js
+/**
+ *! CAUTION: We don't need this
+ *  More Info: [kooriookami/yugioh-card/packages/yugioh-card/src/yugioh-series-2-card/index.js](https://github.com/kooriookami/yugioh-card/blob/master/packages/yugioh-card/src/yugioh-series-2-card/index.js)
+ */
 export class YugiohSeries2Card extends YugiohCard {}
 
-// ! 不保留 Rush Duel
-// https://github.com/kooriookami/yugioh-card/blob/master/packages/yugioh-card/src/rush-duel-card/index.js
+/**
+ *! CAUTION: We don't need this
+ *  More Info: [kooriookami/yugioh-card/packages/yugioh-card/src/rush-duel-card/index.js](https://github.com/kooriookami/yugioh-card/blob/master/packages/yugioh-card/src/rush-duel-card/index.js)
+ */
 export class RushDuelCard extends YugiohCard {}
 
 // * card (BACK) * //
 
-// https://github.com/kooriookami/yugioh-card/blob/master/packages/yugioh-card/src/yugioh-back-card/index.js
+/**
+ *  More Info: [kooriookami/yugioh-card/packages/yugioh-card/src/yugioh-back-card/index.js](https://github.com/kooriookami/yugioh-card/blob/master/packages/yugioh-card/src/yugioh-back-card/index.js)
+ */
 export class YugiohBackCard extends Card<BackCardData> {}

@@ -1,15 +1,3 @@
-<template>
-  <div class="file-upload">
-    <input ref="fileInput" type="file" class="hidden-input" @change="handleChange" />
-    <button type="button" class="upload-button" @click="handleClick" title="Upload file">
-      <UploadIcon />
-    </button>
-  </div>
-  <Teleport to="body">
-    <FileUploadModal ref="modalDropRef" @upload="handleFileUpload" />
-  </Teleport>
-</template>
-
 <script setup lang="ts">
 import { useTemplateRef } from 'vue'
 import { extractFile } from '../../utils/misc/file'
@@ -33,23 +21,36 @@ const modalDropRef = useTemplateRef('modalDropRef')
 
 // methods //
 // 如果不是觸控裝置，則顯示 modal
-const handleClick = () => {
+function handleClick() {
   if (isTouchDevice) {
     fileInput.value?.click()
-  } else {
+  }
+  else {
     modalDropRef.value?.showModal()
   }
 }
-const handleChange = (event: Event) => {
+function handleChange(event: Event) {
   const file = extractFile(event, props.dataTypes)
   if (file) {
     emit('upload', file)
   }
 }
-const handleFileUpload = (file: File) => {
+function handleFileUpload(file: File) {
   emit('upload', file)
 }
 </script>
+
+<template>
+  <div class="file-upload">
+    <input ref="fileInput" type="file" class="hidden-input" @change="handleChange">
+    <button type="button" class="upload-button" title="Upload file" @click="handleClick">
+      <UploadIcon />
+    </button>
+  </div>
+  <Teleport to="body">
+    <FileUploadModal ref="modalDropRef" @upload="handleFileUpload" />
+  </Teleport>
+</template>
 
 <style scoped lang="css">
 .file-upload {

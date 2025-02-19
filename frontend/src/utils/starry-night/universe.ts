@@ -75,7 +75,8 @@ class Star {
     if (this.giant) {
       this.universe.fillStyle = `rgba(${giantColor},${this.opacity})`
       this.universe.arc(this.x, this.y, 2, 0, 2 * Math.PI, false)
-    } else if (this.comet) {
+    }
+    else if (this.comet) {
       this.universe.fillStyle = `rgba(${cometColor},${this.opacity})`
       this.universe.arc(this.x, this.y, 1.5, 0, 2 * Math.PI, false)
 
@@ -83,7 +84,8 @@ class Star {
         this.universe.fillStyle = `rgba(${cometColor},${this.opacity})`
         this.universe.fillRect(this.x - (this.dx / 4) * i, this.y - (this.dy / 4) * i - 2, 2, 2)
       }
-    } else {
+    }
+    else {
       this.universe.fillStyle = `rgba(${starColor},${this.opacity})`
       this.universe.fillRect(this.x, this.y, this.r, this.r)
     }
@@ -127,9 +129,10 @@ function endingDraw(universe: CanvasRenderingContext2D, counter: number): void {
     star.draw()
   }
 
-  if (counter != 0) {
+  if (counter !== 0) {
     window.requestAnimationFrame(() => endingDraw(universe, --counter))
-  } else {
+  }
+  else {
     universe.clearRect(0, 0, width, height)
   }
 }
@@ -145,9 +148,10 @@ function draw(universe: CanvasRenderingContext2D): void {
   }
 
   if (isEnding) {
-    stars.forEach((star) => star.forceFadingOut())
+    stars.forEach(star => star.forceFadingOut())
     window.requestAnimationFrame(() => endingDraw(universe, 300))
-  } else {
+  }
+  else {
     window.requestAnimationFrame(() => draw(universe))
   }
 }

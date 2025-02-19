@@ -1,5 +1,6 @@
 import type { MaybeElementRef } from '@vueuse/core'
-import { nextTick, unref, watch, type Ref, type WatchSource } from 'vue'
+import type { Ref, WatchSource } from 'vue'
+import { nextTick, unref, watch } from 'vue'
 
 export function useAutoScroll(containerRef: MaybeElementRef<HTMLElement | null>) {
   const scrollToBottom = async () => {

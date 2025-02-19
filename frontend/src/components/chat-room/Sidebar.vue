@@ -1,37 +1,7 @@
-<template>
-  <div class="sidebar-wrapper">
-    <button
-      v-show="!isOpen"
-      class="open-button"
-      @click="toggleSidebar"
-      aria-label="Open chat history"
-    >
-      <MenuIcon />
-    </button>
-    <div class="sidebar-container" :class="{ open: isOpen }" ref="sidebarRef">
-      <SidebarHeader @new="emit('new')" @close="toggleSidebar" />
-      <div class="sidebar-content">
-        <div class="history-list">
-          <SidebarItem
-            v-for="(conversation, index) in conversations"
-            :key="conversation.id"
-            :conversation="conversation"
-            :is-active="currentConversation.id === conversation.id"
-            :is-open="isOpen"
-            :index="index"
-            @select="emit('select', conversation.id)"
-            @delete="emit('delete', conversation.id)"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
+import type { Conversation } from '../../types'
 import { onClickOutside } from '@vueuse/core'
 import { ref, useTemplateRef } from 'vue'
-import type { Conversation } from '../../types'
 import MenuIcon from '../lordicon/MenuIcon.vue'
 import SidebarHeader from './SidebarHeader.vue'
 import SidebarItem from './SidebarItem.vue'
@@ -50,6 +20,7 @@ const emit = defineEmits<{
 }>()
 
 // ref //
+const isOpen = ref(false)
 const sidebarRef = useTemplateRef('sidebarRef')
 
 // composables //
@@ -60,14 +31,41 @@ onClickOutside(sidebarRef, () => {
   }
 })
 
-// ref //
-const isOpen = ref(false)
-
 // methods //
-const toggleSidebar = () => {
+function toggleSidebar() {
   isOpen.value = !isOpen.value
 }
 </script>
+
+<template>
+  <div class="sidebar-wrapper">
+    <button
+      v-show="!isOpen"
+      class="open-button"
+      aria-label="Open chat history"
+      @click="toggleSidebar"
+    >
+      <MenuIcon />
+    </button>
+    <div ref="sidebarRef" class="sidebar-container" :class="{ open: isOpen }">
+      <SidebarHeader @new="emit('new')" @close="toggleSidebar" />
+      <div class="sidebar-content">
+        <div class="history-list">
+          <SidebarItem
+            v-for="(conversation, index) in conversations"
+            :key="conversation.id"
+            :conversation="conversation"
+            :is-active="currentConversation.id === conversation.id"
+            :is-open="isOpen"
+            :index="index"
+            @select="emit('select', conversation.id)"
+            @delete="emit('delete', conversation.id)"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped lang="css">
 .sidebar-wrapper {

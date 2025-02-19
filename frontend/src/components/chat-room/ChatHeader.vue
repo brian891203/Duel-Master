@@ -1,27 +1,3 @@
-<template>
-  <div class="chat-header">
-    <div v-if="isEditing" class="title-edit">
-      <input
-        v-model="editableTitle"
-        type="text"
-        @blur="saveTitle"
-        @keydown="handleKeydown"
-        ref="titleInput"
-        class="title-input"
-        placeholder="Enter chat title"
-        maxlength="50"
-        autofocus
-      />
-    </div>
-    <h1 v-else @click="startEditing" class="title-display">
-      {{ title }}
-      <span class="edit-icon">
-        <PenIcon />
-      </span>
-    </h1>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref } from 'vue'
 import PenIcon from '../lordicon/PenIcon.vue'
@@ -41,29 +17,54 @@ const isEditing = ref(false)
 const editableTitle = ref(props.title)
 
 // methods //
-const startEditing = () => {
+function startEditing() {
   editableTitle.value = props.title
   isEditing.value = true
 }
 
-const saveTitle = () => {
+function saveTitle() {
   if (editableTitle.value.trim()) {
     emit('update:title', editableTitle.value.trim())
-  } else {
+  }
+  else {
     editableTitle.value = props.title
   }
   isEditing.value = false
 }
 
-const handleKeydown = (e: KeyboardEvent) => {
+function handleKeydown(e: KeyboardEvent) {
   if (e.key === 'Enter') {
     saveTitle()
-  } else if (e.key === 'Escape') {
+  }
+  else if (e.key === 'Escape') {
     isEditing.value = false
     editableTitle.value = props.title
   }
 }
 </script>
+
+<template>
+  <div class="chat-header">
+    <div v-if="isEditing" class="title-edit">
+      <input
+        v-model="editableTitle"
+        type="text"
+        class="title-input"
+        placeholder="Enter chat title"
+        maxlength="50"
+        autofocus
+        @blur="saveTitle"
+        @keydown="handleKeydown"
+      >
+    </div>
+    <h1 v-else class="title-display" @click="startEditing">
+      {{ title }}
+      <span class="edit-icon">
+        <PenIcon />
+      </span>
+    </h1>
+  </div>
+</template>
 
 <style scoped lang="css">
 @import url('../../styles/css/breathing.css');

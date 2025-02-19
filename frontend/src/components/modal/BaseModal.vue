@@ -1,17 +1,3 @@
-<template>
-  <Transition name="modal-outer">
-    <div class="modal-wrapper" v-show="show" @click.self="closeModal()">
-      <Transition name="modal-inner">
-        <div class="modal" v-if="show">
-          <slot name="header" />
-          <slot name="body" />
-          <slot name="footer" />
-        </div>
-      </Transition>
-    </div>
-  </Transition>
-</template>
-
 <script setup lang="ts">
 import { ref } from 'vue'
 
@@ -19,15 +5,15 @@ import { ref } from 'vue'
 const show = ref(false)
 
 // methods //
-const isShow = () => {
+function isShow() {
   return show.value
 }
 
-const showModal = () => {
+function showModal() {
   show.value = true
 }
 
-const closeModal = () => {
+function closeModal() {
   show.value = false
 }
 
@@ -37,6 +23,20 @@ defineExpose({
   closeModal,
 })
 </script>
+
+<template>
+  <Transition name="modal-outer">
+    <div v-show="show" class="modal-wrapper" @click.self="closeModal()">
+      <Transition name="modal-inner">
+        <div v-if="show" class="modal">
+          <slot name="header" />
+          <slot name="body" />
+          <slot name="footer" />
+        </div>
+      </Transition>
+    </div>
+  </Transition>
+</template>
 
 <style scoped lang="css">
 .modal-wrapper {

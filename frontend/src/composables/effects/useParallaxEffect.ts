@@ -2,8 +2,9 @@ import { useEventListener } from '@vueuse/core'
 import { onMounted } from 'vue'
 import { isTouchDevice } from '../../utils/misc/methods'
 
-export const useParallaxEffect = (selector: string, speed: number = 1 / 100) => {
-  if (isTouchDevice) return
+export function useParallaxEffect(selector: string, speed: number = 1 / 100) {
+  if (isTouchDevice)
+    return
 
   onMounted(() => {
     const elements = document.querySelectorAll<HTMLElement>(selector)

@@ -1,31 +1,8 @@
-<template>
-  <div class="chat-input">
-    <UploadButton :data-types="isImage" @upload="handleFileUpload" />
-    <textarea
-      ref="textarea"
-      v-model="newMessage"
-      placeholder="問我酷問題..."
-      @keydown="handleKeydown"
-      rows="1"
-      class="message-input"
-    />
-    <button @click="sendMessage" :disabled="!newMessage.trim()" class="send-button">
-      <SendIcon />
-    </button>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { nextTick, ref, useTemplateRef, watch } from 'vue'
 import { isImage } from '../../utils/misc/file'
 import UploadButton from '../button/UploadButton.vue'
 import SendIcon from '../lordicon/SendIcon.vue'
-
-// template ref //
-const textarea = useTemplateRef<HTMLTextAreaElement>('textarea')
-
-// ref //
-const newMessage = ref('')
 
 // emit //
 const emit = defineEmits<{
@@ -33,8 +10,14 @@ const emit = defineEmits<{
   (e: 'upload', file: File): void
 }>()
 
+// template ref //
+const textarea = useTemplateRef<HTMLTextAreaElement>('textarea')
+
+// ref //
+const newMessage = ref('')
+
 // methods //
-const adjustTextareaHeight = async () => {
+async function adjustTextareaHeight() {
   await nextTick()
   if (textarea.value) {
     textarea.value.style.height = 'auto'
@@ -46,7 +29,7 @@ const adjustTextareaHeight = async () => {
   }
 }
 
-const handleKeydown = (e: KeyboardEvent) => {
+function handleKeydown(e: KeyboardEvent) {
   if (e.key === 'Enter') {
     if (e.shiftKey) {
       // Allow default behavior for Shift + Enter (new line)
@@ -57,7 +40,7 @@ const handleKeydown = (e: KeyboardEvent) => {
   }
 }
 
-const sendMessage = () => {
+function sendMessage() {
   if (newMessage.value.trim()) {
     emit('send', newMessage.value)
     newMessage.value = ''
@@ -68,7 +51,7 @@ const sendMessage = () => {
   }
 }
 
-const handleFileUpload = (file: File) => {
+function handleFileUpload(file: File) {
   emit('upload', file)
 }
 
@@ -77,6 +60,23 @@ watch(newMessage, () => {
   adjustTextareaHeight()
 })
 </script>
+
+<template>
+  <div class="chat-input">
+    <UploadButton :data-types="isImage" @upload="handleFileUpload" />
+    <textarea
+      ref="textarea"
+      v-model="newMessage"
+      placeholder="問我酷問題..."
+      rows="1"
+      class="message-input"
+      @keydown="handleKeydown"
+    />
+    <button :disabled="!newMessage.trim()" class="send-button" @click="sendMessage">
+      <SendIcon />
+    </button>
+  </div>
+</template>
 
 <style scoped lang="css">
 .chat-input {

@@ -1,6 +1,7 @@
-import { useMediaQuery, type MaybeElementRef } from '@vueuse/core'
-import { unref, watch } from 'vue'
+import type { MaybeElementRef } from '@vueuse/core'
 import type { CanvasCardType, Dimension } from '../../types'
+import { useMediaQuery } from '@vueuse/core'
+import { unref, watch } from 'vue'
 
 /**
  * ## Brief
@@ -28,11 +29,7 @@ import type { CanvasCardType, Dimension } from '../../types'
  * })
  * ```
  */
-export const useResponsiveCard = (
-  cardElement: MaybeElementRef<CanvasCardType | null>,
-  breakpointMap: Record<number, number>,
-  maxSize: Dimension,
-) => {
+export function useResponsiveCard(cardElement: MaybeElementRef<CanvasCardType | null>, breakpointMap: Record<number, number>, maxSize: Dimension) {
   if (!(maxSize.width || maxSize.height)) {
     throw new Error('Either width or height must be provided in maxSize.')
   }
@@ -44,16 +41,17 @@ export const useResponsiveCard = (
     .map(Number)
     .sort((a, b) => a - b)
 
-  const queries = breakpoints.map((bp) => useMediaQuery(`(max-${dim}: ${bp}px)`))
+  const queries = breakpoints.map(bp => useMediaQuery(`(max-${dim}: ${bp}px)`))
 
   const initResponsive = () => {
     const rawCardElement = unref(cardElement)
-    if (!rawCardElement) return
+    if (!rawCardElement)
+      return
 
-    const i = queries.findIndex((query) => query.value)
+    const i = queries.findIndex(query => query.value)
     if (i !== -1) {
-      const newSize: Dimension =
-        dim === 'width'
+      const newSize: Dimension
+        = dim === 'width'
           ? { width: breakpointMap[breakpoints[i]] }
           : { height: breakpointMap[breakpoints[i]] }
       rawCardElement.setSize(newSize)
@@ -63,16 +61,18 @@ export const useResponsiveCard = (
     queries.forEach((query, i) => {
       watch(query, (matches) => {
         if (matches) {
-          const newSize: Dimension =
-            dim === 'width'
+          const newSize: Dimension
+            = dim === 'width'
               ? { width: breakpointMap[breakpoints[i]] }
               : { height: breakpointMap[breakpoints[i]] }
           rawCardElement.setSize(newSize)
-        } else if (i === queries.length - 1) {
+        }
+        else if (i === queries.length - 1) {
           rawCardElement.setSize(maxSize)
-        } else {
-          const nextSize: Dimension =
-            dim === 'width'
+        }
+        else {
+          const nextSize: Dimension
+            = dim === 'width'
               ? { width: breakpointMap[breakpoints[i + 1]] }
               : { height: breakpointMap[breakpoints[i + 1]] }
           rawCardElement.setSize(nextSize)

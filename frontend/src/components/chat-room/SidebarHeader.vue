@@ -1,17 +1,3 @@
-<template>
-  <div class="sidebar-header">
-    <h2>Chat History</h2>
-    <div class="header-actions">
-      <button class="new-chat-button" @click="emit('new')" aria-label="New chat">
-        <PlusIcon style="color: var(--primary-color)" />
-      </button>
-      <button class="close-button" @click="emit('close')" aria-label="Close chat history">
-        <ChevronLeftIcon style="color: var(--primary-color)" />
-      </button>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import PlusIcon from '../icon/AddIcon.vue'
 import ChevronLeftIcon from '../icon/ChevronLeftIcon.vue'
@@ -22,6 +8,20 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 </script>
+
+<template>
+  <div class="sidebar-header">
+    <h2>Chat History</h2>
+    <div class="header-actions">
+      <button class="new-chat-button" aria-label="New chat" @click="emit('new')">
+        <PlusIcon style="color: var(--primary-color)" />
+      </button>
+      <button class="close-button" aria-label="Close chat history" @click="emit('close')">
+        <ChevronLeftIcon style="color: var(--primary-color)" />
+      </button>
+    </div>
+  </div>
+</template>
 
 <style scoped lang="css">
 .sidebar-header {

@@ -1,13 +1,6 @@
-<template>
-  <div class="avatar" :class="sizeClass">
-    <img v-if="src" :src="src" />
-    <div v-else class="avatar-initials">{{ initials }}</div>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { computed } from 'vue'
 import type { AvatarSize } from '../../types'
+import { computed } from 'vue'
 import { generateInitials } from '../../utils/chat-room/avatar'
 
 const props = withDefaults(
@@ -25,6 +18,15 @@ const props = withDefaults(
 const initials = computed(() => generateInitials(props.name))
 const sizeClass = computed(() => `avatar-${props.size}`)
 </script>
+
+<template>
+  <div class="avatar" :class="sizeClass">
+    <img v-if="src" :src="src">
+    <div v-else class="avatar-initials">
+      {{ initials }}
+    </div>
+  </div>
+</template>
 
 <style scoped lang="css">
 .avatar {

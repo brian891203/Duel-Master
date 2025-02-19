@@ -1,5 +1,5 @@
-import { AVATAR_URLS } from '../../config'
 import type { CardInfo, Message, Sender } from '../../types'
+import { AVATAR_URLS } from '../../config'
 import { fileToBase64 } from '../misc/file'
 
 export function createSimpleMessage(sender: Sender, text: string): Message {
@@ -21,7 +21,7 @@ export async function createFileMessage(
   return {
     id: Date.now().toString(),
     text,
-    sender: sender,
+    sender,
     timestamp: new Date(),
     avatar: AVATAR_URLS.You,
     block: {

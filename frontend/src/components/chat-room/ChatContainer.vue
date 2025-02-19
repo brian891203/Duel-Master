@@ -1,22 +1,6 @@
-<template>
-  <div class="chat-container">
-    <ChatSidebar :conversations="conversations" :currentConversation="currentConversation" @select="selectConversation"
-      @new="createNewConversation" @delete="deleteConversation" />
-    <div class="chat-main">
-      <ChatHeader :title="currentConversation.title" @update:title="updateConversationTitle" />
-      <ChatMessageList :messages="currentConversation.messages" />
-      <ChatInput @send="handleMessageSend" @upload="handleFileUpload" />
-    </div>
-  </div>
-  <Teleport to="body">
-    <CardModal ref="cardModalRef" :card-info="cardInfo" :max-size="LARGE_CARD_BP.maxSize"
-      :breakpoint-map="LARGE_CARD_BP.breakpointMap">
-    </CardModal>
-  </Teleport>
-</template>
-
 <script setup lang="ts">
 import { useTemplateRef, watch } from 'vue'
+import { dataAPI } from '../../api/data'
 import { questionAPI } from '../../api/question'
 import { translateAPI } from '../../api/translation'
 import { useConversation } from '../../composables/chat-room/useConversation'
@@ -29,13 +13,12 @@ import {
   createSimpleMessage,
 } from '../../utils/chat-room/createMessage'
 import { sleep } from '../../utils/misc/methods'
+import { yCardtoFrontCardData } from '../../utils/ygoprodeck/transform'
 import CardModal from '../modal/CardModal.vue'
 import ChatHeader from './ChatHeader.vue'
 import ChatInput from './ChatInput.vue'
 import ChatMessageList from './ChatMessageList.vue'
 import ChatSidebar from './Sidebar.vue'
-import { dataAPI } from '../../api/data'
-import { yCardtoFrontCardData } from '../../utils/ygoprodeck/transform'
 
 // variables //
 const cardInfo = { frontCardData: YugiohCard, backCardData: YugiohBackCard }
@@ -54,7 +37,7 @@ const {
 } = useConversation()
 
 // 問答模式 //
-const questionMode = async (text: string) => {
+async function questionMode(text: string) {
   const { data } = await questionAPI(text)
   if (data.success) {
     const systemMessage = createSimpleMessage('System', data.answer)
@@ -63,7 +46,7 @@ const questionMode = async (text: string) => {
 }
 
 // 翻譯模式 //
-const translationMode = async (file: File, password: string) => {
+async function translationMode(file: File, password: string) {
   // promise
   const dataPromise = dataAPI(password)
   const translatePromise = translateAPI(file)
@@ -76,11 +59,12 @@ const translationMode = async (file: File, password: string) => {
 
   // dataAPI
   const { data: cardData } = await dataPromise
-  if ("data" in cardData) {
+  if ('data' in cardData) {
     cardModalRef.value?.setCardInfo({
-      frontCardData: yCardtoFrontCardData(cardData.data[0])
+      frontCardData: yCardtoFrontCardData(cardData.data[0]),
     })
-  } else {
+  }
+  else {
     alert(`卡片資訊獲取失敗：${cardData.error}`)
   }
 
@@ -88,10 +72,11 @@ const translationMode = async (file: File, password: string) => {
   const { data: translateData } = await translatePromise
   if (translateData.success) {
     cardModalRef.value?.setCardInfo({
-      frontCardData: translateData.frontCardData
+      frontCardData: translateData.frontCardData,
     })
     cardModalRef.value?.setResultObtained(true)
-  } else {
+  }
+  else {
     alert(`卡片翻譯失敗：${translateData.errMessage}`)
   }
   await cardModalRef.value?.cardEntering()
@@ -105,7 +90,7 @@ const translationMode = async (file: File, password: string) => {
 }
 
 // 處理上傳的訊息 //
-const handleMessageSend = async (text: string) => {
+async function handleMessageSend(text: string) {
   // Your message
   const userMessage = createSimpleMessage('You', text)
   currentConversation.value.messages.push(userMessage)
@@ -114,15 +99,16 @@ const handleMessageSend = async (text: string) => {
   if (currentConversation.value.mode === 'question') {
     await sleep(500)
     questionMode(text)
-  } else if (currentConversation.value.mode === 'translation') {
-    if (text.match(/[0-9]{8}/)) {
+  }
+  else if (currentConversation.value.mode === 'translation') {
+    if (text.match(/\d{8}/)) {
       currentConversation.value.lastPassword = text
     }
   }
 }
 
 // 處理上傳的檔案 //
-const handleFileUpload = async (file: File) => {
+async function handleFileUpload(file: File) {
   // Your message
   const fileMessage = await createFileMessage('You', file, '可以幫我翻譯這張卡片嗎🥺？')
   currentConversation.value.messages.push(fileMessage)
@@ -154,6 +140,26 @@ watch(() => currentConversation.value.lastPassword, async (newPassword) => {
   }
 })
 </script>
+
+<template>
+  <div class="chat-container">
+    <ChatSidebar
+      :conversations="conversations" :current-conversation="currentConversation" @select="selectConversation"
+      @new="createNewConversation" @delete="deleteConversation"
+    />
+    <div class="chat-main">
+      <ChatHeader :title="currentConversation.title" @update:title="updateConversationTitle" />
+      <ChatMessageList :messages="currentConversation.messages" />
+      <ChatInput @send="handleMessageSend" @upload="handleFileUpload" />
+    </div>
+  </div>
+  <Teleport to="body">
+    <CardModal
+      ref="cardModalRef" :card-info="cardInfo" :max-size="LARGE_CARD_BP.maxSize"
+      :breakpoint-map="LARGE_CARD_BP.breakpointMap"
+    />
+  </Teleport>
+</template>
 
 <style scoped lang="css">
 .chat-container {

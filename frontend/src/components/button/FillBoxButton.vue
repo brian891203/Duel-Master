@@ -1,7 +1,3 @@
-<template>
-  <BoxButton :tag="tag" class="diff-btn"> <slot /><span></span> </BoxButton>
-</template>
-
 <script setup lang="ts">
 import BoxButton from './BoxButton.vue'
 
@@ -10,6 +6,12 @@ const { tag } = defineProps<{
   tag: string
 }>()
 </script>
+
+<template>
+  <BoxButton :tag="tag" class="diff-btn">
+    <slot /><span />
+  </BoxButton>
+</template>
 
 <style scoped lang="css">
 span {

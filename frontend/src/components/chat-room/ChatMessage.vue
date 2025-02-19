@@ -1,3 +1,54 @@
+<script setup lang="ts">
+import type { Message } from '../../types'
+import DOMPurify from 'dompurify'
+import { computed, onMounted, useTemplateRef } from 'vue'
+import { useResponsiveCard } from '../../composables/canvas-card/useResponsiveCard'
+import { LARGE_CARD_BP, SMALL_CARD_BP } from '../../config'
+import { formatTime } from '../../utils/misc/date'
+import CanvasCard from '../canvas-card/CanvasCard.vue'
+import Avatar from '../misc/Avatar.vue'
+import CardModal from '../modal/CardModal.vue'
+
+// props //
+const props = defineProps<{
+  message: Message
+}>()
+
+// template ref //
+const canvasCardRef = useTemplateRef('canvasCardRef')
+const cardModalRef = useTemplateRef('cardModalRef')
+
+// computed //
+const sanitizedMessageText = computed(() => {
+  // 防止 XSS 攻擊
+  return DOMPurify.sanitize(props.message.text.replace(/\n/g, '<br>'))
+})
+
+// composables //
+const { initResponsive } = useResponsiveCard(
+  canvasCardRef,
+  SMALL_CARD_BP.breakpointMap,
+  SMALL_CARD_BP.maxSize,
+)
+
+// methods //
+async function showCard() {
+  await cardModalRef.value?.showModal()
+  cardModalRef.value?.flipCard('front')
+}
+
+// life cycle //
+onMounted(() => {
+  if (canvasCardRef.value) {
+    canvasCardRef.value?.setSize(SMALL_CARD_BP.maxSize)
+    initResponsive()
+    canvasCardRef.value?.flip('front')
+    canvasCardRef.value?.enableClickFlip(false)
+  }
+  cardModalRef.value?.setResultObtained(true)
+})
+</script>
+
 <template>
   <div class="message" :class="{ 'message-own': message.sender === 'You' }">
     <Avatar
@@ -12,14 +63,14 @@
         <span class="sender">{{ message.sender }}</span>
         <span class="timestamp">{{ formatTime(message.timestamp) }}</span>
       </div>
-      <p class="message-text" v-html="sanitizedMessageText"></p>
+      <p class="message-text" v-html="sanitizedMessageText" />
       <div v-if="message.block?.kind === 'file'" class="block-info">
         <img
           v-if="message.block.data.isImage"
           :src="message.block.data.url"
           :alt="message.block.data.name"
           class="message-image"
-        />
+        >
         <a v-else :href="message.block.data.url" target="_blank" class="file-link">
           {{ message.block.data.name }}
         </a>
@@ -50,61 +101,9 @@
       :card-info="message.block?.data"
       :max-size="LARGE_CARD_BP.maxSize"
       :breakpoint-map="LARGE_CARD_BP.breakpointMap"
-    >
-    </CardModal>
+    />
   </Teleport>
 </template>
-
-<script setup lang="ts">
-import DOMPurify from 'dompurify'
-import { computed, onMounted, useTemplateRef } from 'vue'
-import { useResponsiveCard } from '../../composables/canvas-card/useResponsiveCard'
-import { LARGE_CARD_BP, SMALL_CARD_BP } from '../../config'
-import type { Message } from '../../types'
-import { formatTime } from '../../utils/misc/date'
-import CanvasCard from '../canvas-card/CanvasCard.vue'
-import Avatar from '../misc/Avatar.vue'
-import CardModal from '../modal/CardModal.vue'
-
-// props //
-const props = defineProps<{
-  message: Message
-}>()
-
-// template ref //
-const canvasCardRef = useTemplateRef('canvasCardRef')
-const cardModalRef = useTemplateRef('cardModalRef')
-
-// computed //
-const sanitizedMessageText = computed(() => {
-  // 防止 XSS 攻擊
-  return DOMPurify.sanitize(props.message.text.replace(/\n/g, '<br>'))
-})
-
-// composables //
-const { initResponsive } = useResponsiveCard(
-  canvasCardRef,
-  SMALL_CARD_BP.breakpointMap,
-  SMALL_CARD_BP.maxSize,
-)
-
-// methods //
-const showCard = async () => {
-  await cardModalRef.value?.showModal()
-  cardModalRef.value?.flipCard('front')
-}
-
-// life cycle //
-onMounted(() => {
-  if (canvasCardRef.value) {
-    canvasCardRef.value?.setSize(SMALL_CARD_BP.maxSize)
-    initResponsive()
-    canvasCardRef.value?.flip('front')
-    canvasCardRef.value?.enableClickFlip(false)
-  }
-  cardModalRef.value?.setResultObtained(true)
-})
-</script>
 
 <style scoped lang="css">
 .message {

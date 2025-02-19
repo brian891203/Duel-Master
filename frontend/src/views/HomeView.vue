@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import FillBoxButton from '../components/button/FillBoxButton.vue'
+import { useParallaxEffect } from '../composables/effects/useParallaxEffect'
+import { PATH } from '../config'
+
+// composables //
+useParallaxEffect('.parallax-p100', 1 / 100)
+</script>
+
 <template>
   <main>
     <video
@@ -7,26 +16,17 @@
       muted
       loop
       plays-inline
-    ></video>
+    />
     <div class="content">
       <h1>Duel Master!</h1>
       <div class="btn-group">
-        <FillBoxButton tag="RouterLink" to="/chatroom" class="link-btn chatroom"
-          >Start</FillBoxButton
-        >
+        <FillBoxButton tag="RouterLink" to="/chatroom" class="link-btn chatroom">
+          Start
+        </FillBoxButton>
       </div>
     </div>
   </main>
 </template>
-
-<script setup lang="ts">
-import FillBoxButton from '../components/button/FillBoxButton.vue'
-import { useParallaxEffect } from '../composables/effects/useParallaxEffect'
-import { PATH } from '../config'
-
-// composables //
-useParallaxEffect('.parallax-p100', 1 / 100)
-</script>
 
 <style scoped lang="css">
 @import url('../styles/css/yugioh-bg.css');
