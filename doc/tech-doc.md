@@ -99,8 +99,8 @@ cd frontend
 cd backend
 ```
 
-| 📘 <span class="note">NOTE</span>                                                             |
-| :------------------------------------------------------------------------------------------- |
+| 📘 <span class="note">NOTE</span> |
+| :--- |
 | `.env` 環境變數檔 (要放在 `backend` 目錄底下) 請和[我](mailto:rogeliokg0813@gmail.com)索取！ |
 
 #### Using `pip`
@@ -152,44 +152,29 @@ cd backend
 (我們的話會在 `frontend/dist` 這個目錄，下面會教你怎麼打包)
 
 ```
-dist
+dist/
+├── assets/
+│   ├── fonts/
+│   ├── videos/
+│   ├── index.js
+│   ├── index.css
+│   └── ...
 ├── favicon.ico
-├── index.html
-└── assets
-    ├── chatroom.js
-    ├── chatroom.css
-    ├── all.css
-    ├── index.js
-    └── font.otf
+└── index.html
 ```
 
 ### How
 
-+ `npm run build`
-
-  執行 `build` 指令後，所有前端程式碼，就會打包到 dist 目錄裡。
-
-+ `npm run copy-resources`
-
-  要執行 `copy-resources` 指令，是因為我們還有一些影片或者圖片資源放在前端。\
-  所以打包完後，要複製進去。我使用 `robocopy`，這是 Windows 內建 CLI。\
-  如果你是 Linux 平台，可能要去 `frontend/package.json` 那裡修改，改成使用其他複製工具。
+執行 `build` 指令後，所有前端程式碼，就會打包到 dist 目錄裡。
 
 #### Using `npm`
 ```
 npm run build
 ```
-```
-npm run copy-resources
-```
 
 #### Using `pnpm`
 ```
 pnpm build
-```
-
-```
-pnpm copy-resources
 ```
 
 

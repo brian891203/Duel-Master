@@ -10,7 +10,7 @@ useParallaxEffect('.parallax-p100', 1 / 100)
   <main>
     <video
       class="parallax-p100"
-      src="/assets/resources/yugioh-bg.mp4"
+      src="/assets/videos/yugioh-bg.mp4"
       autoplay
       muted
       loop
