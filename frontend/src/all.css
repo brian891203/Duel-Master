@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Matrix II Bold';
-  src: url('./assets/fonts/matrix-ii-bold.otf');
+  src: url('/assets/fonts/matrix-ii-bold.otf');
 }
 
 * {

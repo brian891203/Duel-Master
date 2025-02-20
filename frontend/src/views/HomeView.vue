@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import FillBoxButton from '../components/button/FillBoxButton.vue'
 import { useParallaxEffect } from '../composables/effects/useParallaxEffect'
-import { PATH } from '../config'
 
 // composables //
 useParallaxEffect('.parallax-p100', 1 / 100)
@@ -11,7 +10,7 @@ useParallaxEffect('.parallax-p100', 1 / 100)
   <main>
     <video
       class="parallax-p100"
-      :src="`${PATH.YUGIOH_RESOURCES_DIR}/yugioh-bg.mp4`"
+      src="/assets/resources/yugioh-bg.mp4"
       autoplay
       muted
       loop
