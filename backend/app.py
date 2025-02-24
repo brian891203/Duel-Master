@@ -1,5 +1,10 @@
+# load environment variable
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # standard library
-import os
+import logging
 
 # 3rd party library
 from flask import Flask, request, jsonify, send_file, send_from_directory
@@ -7,15 +12,15 @@ from flask_cors import CORS
 
 # local module
 from src.constants import PATH
-from src.shared_types import TranslateAPIResponse, QuestionAPIResponse
-from src.card.image import get_card_image_path, download_card_image
-from src.card.translation import (
-    image_create_url,
-    extract_text_from_image,
-    create_front_card_data,
-)
+from src.shared_types import FrontCardData, TranslateAPIResponse, QuestionAPIResponse
+from src.image.card_image import CardImage
+from src.image.user_image import UserImage
+from src.card.translation import TranslationPipeline, normalize_punctuation
+from src.card.text_extractor import OcrTextExtractor
+from src.card.translator import YugiohTranslator
 
 
+# app
 app = Flask(__name__)
 CORS(app)
 
@@ -23,7 +28,6 @@ CORS(app)
 # 翻譯 API
 @app.route("/api/translate", methods=["POST"])
 def translate_api():
-
     if "image" not in request.files:
         response: TranslateAPIResponse = {
             "success": False,
@@ -31,26 +35,24 @@ def translate_api():
         }
         return jsonify(response), 400
 
-    # 圖片在這裡
+    # 使用者上傳圖片在這裡
     image = request.files["image"]
-    image_path = f"{PATH.USER_UPLOAD_IMAGE_DIR.value}/{image.filename}"
 
-    # 儲存檔案
-    image.save(image_path)
+    # 儲存圖片
+    user_image = UserImage(image)
+    user_image.save()
 
     # 將圖片上傳到 Imgur，並回傳圖片 URL
-    url = image_create_url(image_path, image.filename, logger=app.logger)
+    user_image_url = user_image.create_url()
 
-    # 處理圖片，轉成文字 (OCR)
-    jp_text_list = extract_text_from_image(url, logger=app.logger)
+    # 翻譯圖片
+    translated_text = translation_pipeline.process(user_image_url)
 
     # 文字翻譯，產出 FrontCardData
-    front_card_data = create_front_card_data(jp_text_list)
+    front_card_data: FrontCardData = {"description": translated_text}
 
-    # 刪除圖片檔
-    if os.path.exists(image_path):
-        os.remove(image_path)
-        app.logger.info(f"Image {image_path} has been deleted!")
+    # 刪除圖片
+    user_image.remove()
 
     # 產生 response
     response: TranslateAPIResponse = {
@@ -88,18 +90,33 @@ def serve_card_material(filepath: str):
     return send_from_directory(PATH.YUGIOH_MATERIAL_DIR.value, filepath)
 
 
-# 卡片圖片 API
+# 卡面圖片 API
 @app.route("/api/assets/card-image/<image_id>")
 def serve_card_image(image_id: str):
-    image_path = get_card_image_path(image_id)
+    
+    # 卡面圖片
+    card_image = CardImage(image_id, logger=logger)
 
-    # 如果圖片不存在，就下載圖片
-    if not os.path.exists(image_path):
-        download_card_image(image_id, image_path, logger=app.logger)
+    # 如果不存在就下載
+    if not card_image.exists_locally():
+        card_image.download()
 
-    return send_file(image_path)
-
+    return send_file(card_image.local_path)
 
 if __name__ == "__main__":
-    app.run(debug=True, port=3000)
+    # 日誌
+    logger = app.logger
+    logger.setLevel(logging.DEBUG)
+
+    # OCR 文字提取器
+    text_extractor = OcrTextExtractor(logger=logger)
+
+    # 翻譯模型
+    translator = YugiohTranslator(logger=logger)
+
+    # 翻譯管線
+    translation_pipeline = TranslationPipeline(text_extractor, translator)
+    translation_pipeline.add_postprocess_hook(normalize_punctuation)
+
     # 在 DEBUG 模式時，整個代碼會再重複執行一次
+    app.run(debug=True, port=3000)
