@@ -5,21 +5,21 @@
 
 
 ## [▶️][0] Outline
-+ **[Setup Guide][1]**
-+ **[Running the Project][2]**
-  + **[Frontend][2-1]**
-  + **[Backend][2-2]**
-+ **[Build][3]**
-  + **[What][3-1]**
-  + **[How][3-2]**
-+ **[System Requirements Specification][4]**
-  + **[Functional Requirements][4-1]**
-  + **[Non Functional Requirements][4-2]**
-+ **[API][5]**
-  + **[Translate API][5-1]**
-  + **[Question API][5-2]**
-  + **[Card Material API][5-3]**
-  + **[Card Image API][5-4]**
+1. **[Setup Guide][1]**
+2. **[Running the Project][2]**
+    1. **[Frontend][2-1]**
+    2. **[Backend][2-2]**
+3. **[Build][3]**
+    1. **[What][3-1]**
+    2. **[How][3-2]**
+4. **[System Requirements Specification][4]**
+    1. **[Brief][4-1]**
+    2. **[Functional Requirements][4-2]**
+5. **[API][5]**
+    1. **[Translate API][5-1]**
+    2. **[Question API][5-2]**
+    3. **[Card Material API][5-3]**
+    4. **[Card Image API][5-4]**
 
 [0]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#%EF%B8%8F-outline
 [1]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#%EF%B8%8F-setup-guide
@@ -30,15 +30,17 @@
 [3-1]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#what
 [3-2]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#how
 [4]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#%EF%B8%8F-system-requirements-specification
-[4-1]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#functional-requirements
-[4-2]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#non-functional-requirements
+[4-1]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#brief
+[4-2]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#functional-requirements
 [5]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#%EF%B8%8F-api
 [5-1]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#translate-api
 [5-2]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#question-api
 [5-3]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#card-material-api
 [5-4]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#card-image-api
 
-
+[canvas 卡片]: https://github.com/kooriookami/yugioh-card
+[rendered as a card using HTML5 canvas]: https://github.com/kooriookami/yugioh-card
+[ygoprodeck API]: https://ygoprodeck.com/api-guide/
 
 
 
@@ -183,41 +185,48 @@ pnpm build
 
 ## [⬆️][0] System Requirements Specification
 
+### Brief
+Duel Master 是一個 AI 驅動的聊天室，使用者可以上傳遊戲王卡片圖片，翻譯結果將以 HTML5 canvas 呈現為卡片。
+
+Duel Master is an AI-powered chatroom where users provide Yu-Gi-Oh! card images, and the translation results are rendered as a card using HTML5 canvas.
+
 ### Functional Requirements
 
-> 所有功能一併集中於 chat room
+#### 聊天室 (Chatroom)
+  - 🟢 歷史紀錄功能
+    - 前端：聊天室可以開啟很多個對話，每個對話都保留問答訊息。\
+      Frontend: The chatroom can open multiple conversations, each containing question-answer messages.
 
 #### 翻譯模式 (Translation mode)
-  - 🟢 翻譯功能
-    - 使用者 (frontend) : 可上傳有卡片的圖片內容
-    - 模型 (backend) : 回傳翻譯結果
-  - 🟢 卡片顯示功能
-    - 功能 (frontend) : 翻譯結果會以 [canvas 卡片]呈現
-  - 🟢 詳細資訊功能 
-    - 功能 (backend) : 使用者給定密碼，並從 [ygoprodeck API] 中抓取資料更詳細資訊 (用於 [canvas 卡片]呈現)
-      - 比如卡面圖片、ATK、DEF、cardType、pendulumType 等等
+  - 🟢 翻譯功能 (Translation)
+    - 前端：可上傳有卡片的圖片內容。\
+      Frontend: Can upload images containing Yu-Gi-Oh! cards.
+    - 後端：進行翻譯回傳翻譯結果\
+      Backend: Returns the translation results.
+
+  - 🟢 卡片顯示功能 (Card Display)
+    - 前端：以 [canvas 卡片]呈現翻譯結果。\
+    Frontend: The translation results are [rendered as a card using HTML5 canvas] (canvas card).
+    
+  - 🟢 詳細資訊功能 (Detailed Information)
+    - 前端：可給定卡片密碼，並使用 [ygoprodeck API] 抓取卡片詳細資訊，用於 [canvas 卡片]。\
+    Frontend: Can provide a password and fetch additional details from the [ygoprodeck API] for display on the canvas card.
+
 #### 問答模式 (Q&A mode)
-  - 🟢 問答功能
-    - 使用者 (frontend) : 可輸入遊戲王相關提問內容
-    - 模型 (backend) : 回傳解惑結果
-  - 🟢 歷史紀錄功能
-    - 使用者 (前端) : 可開啟很多 conversations，每個 conversation 有問答的 messages
-  - ⚫ 登入功能
-    - backend 需要實作比較多東西...
-    - database: the schema of user, and conversation, account, password (記得 salting) ...
-    - 登入 cookie ...
-
-### Non Functional Requirements
-
-> ...
-
-[canvas 卡片]: https://github.com/kooriookami/yugioh-card
-[ygoprodeck API]: https://ygoprodeck.com/api-guide/
+  - 🟠 問答功能 (Questions and Answers) (🚨功能尚未完成)
+    - 前端：可輸入遊戲王相關提問內容。\
+      Frontend: Can enter Yu-Gi-Oh! related questions.
+    - 後端：回傳解惑結果。\
+      Backend: Returns answers to the questions.
 
 
 ## [⬆️][0] API
 
 ### Translate API
+
+  提供翻譯功能的後端 API。使用者上傳圖片，後端 API 須回傳翻譯後的卡片資訊。\
+  This is the backend API that provides translation functionality. Users upload an image, and the backend API returns the translated card information.
+
   ```ini
   [API]: /api/translate
   [HTTP Method]: POST
@@ -253,6 +262,10 @@ pnpm build
     }
   ```
 ### Question API
+
+  提供問答功能的後端 API。使用者提問，後端需回傳解惑結果 (🚨功能尚未完成)。\
+  This is the backend API that provides Q&A functionality. Users ask questions, and the backend returns answers (🚨 Feature not completed yet).
+
   ```ini
   [API]: /api/question
   [HTTP Method]: POST
@@ -279,6 +292,9 @@ pnpm build
   ```
 
 ### Card Material API
+  提供卡片材質的後端 API。前端進行 canvas 卡片渲染，因此後端要提供所需的卡片材質。\
+  This is the backend API that provides card materials. The frontend renders canvas cards, so the backend needs to provide the necessary card materials.
+
   ```ini
   [API]: /api/assets/card-material
   [HTTP Method]: GET
@@ -294,6 +310,9 @@ pnpm build
   ```
 
 ### Card Image API
+  提供卡面圖片的後端 API。前端進行 canvas 卡片渲染，因此後端要提供所需的卡面圖片。\
+  This is the backend API that provides card images. The frontend renders canvas cards, so the backend needs to provide the necessary card images.
+
   ```ini
   [API]: /api/assets/card-image
   [HTTP Method]: GET
