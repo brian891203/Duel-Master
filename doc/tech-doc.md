@@ -20,6 +20,8 @@
     2. **[Question API][5-2]**
     3. **[Card Material API][5-3]**
     4. **[Card Image API][5-4]**
+6. **[System Architecture][6]**
+    1. **[Sequence Diagram][6-1]**
 
 [0]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#%EF%B8%8F-outline
 [1]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#%EF%B8%8F-setup-guide
@@ -37,9 +39,11 @@
 [5-2]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#question-api
 [5-3]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#card-material-api
 [5-4]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#card-image-api
+[6]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#%EF%B8%8F-system-architecture
+[6-1]: https://github.com/RogelioKG/Duel-Master/blob/main/doc/tech-doc.md?tab=readme-ov-file#sequence-diagram
 
 [canvas 卡片]: https://github.com/kooriookami/yugioh-card
-[rendered as a card using HTML5 canvas]: https://github.com/kooriookami/yugioh-card
+[canvas card]: https://github.com/kooriookami/yugioh-card
 [ygoprodeck API]: https://ygoprodeck.com/api-guide/
 
 
@@ -193,7 +197,7 @@ Duel Master is an AI-powered chatroom where users provide Yu-Gi-Oh! card images,
 ### Functional Requirements
 
 #### 聊天室 (Chatroom)
-  - 🟢 歷史紀錄功能
+  - 🟢 歷史紀錄功能 (History)
     - 前端：聊天室可以開啟很多個對話，每個對話都保留問答訊息。\
       Frontend: The chatroom can open multiple conversations, each containing question-answer messages.
 
@@ -206,7 +210,7 @@ Duel Master is an AI-powered chatroom where users provide Yu-Gi-Oh! card images,
 
   - 🟢 卡片顯示功能 (Card Display)
     - 前端：以 [canvas 卡片]呈現翻譯結果。\
-    Frontend: The translation results are [rendered as a card using HTML5 canvas] (canvas card).
+    Frontend: The translation results are rendered as a card using HTML5 canvas ([canvas card]).
     
   - 🟢 詳細資訊功能 (Detailed Information)
     - 前端：可給定卡片密碼，並使用 [ygoprodeck API] 抓取卡片詳細資訊，用於 [canvas 卡片]。\
@@ -220,12 +224,15 @@ Duel Master is an AI-powered chatroom where users provide Yu-Gi-Oh! card images,
       Backend: Returns answers to the questions.
 
 
+
+
+
 ## [⬆️][0] API
 
 ### Translate API
 
-  提供翻譯功能的後端 API。使用者上傳圖片，後端 API 須回傳翻譯後的卡片資訊。\
-  This is the backend API that provides translation functionality. Users upload an image, and the backend API returns the translated card information.
+  提供翻譯功能的後端 API。使用者上傳圖片，後端 API 須回傳翻譯結果。\
+  This is the backend API that provides translation functionality. Users upload an image, and the backend API returns the translated results.
 
   ```ini
   [API]: /api/translate
@@ -326,3 +333,35 @@ Duel Master is an AI-powered chatroom where users provide Yu-Gi-Oh! card images,
   [Response Body]:
     card image
   ```
+
+
+
+
+
+## [⬆️][0] System Architecture
+
+### Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant Backend
+
+    %% Translation Process
+    User->>Frontend: Upload Yu-Gi-Oh! card image
+    Frontend->>Backend: POST /api/translate (User uploaded image)
+    Backend->>Backend: Process OCR and Translation
+    Backend-->>Frontend: Translated card data
+    Frontend->>Backend: GET /api/assets/card-material/level.png (Card material)
+    Backend-->>Frontend: Card material
+    Frontend->>Backend: GET /api/assets/card-image/{cardPassword} (Card image)
+    Backend-->>Frontend: Card image
+    Frontend->>Frontend: Render card using HTML5 canvas<br />(with translated data, card material, and card image)
+
+    %% Question Process
+    User->>Frontend: Ask Yu-Gi-Oh! related question
+    Frontend->>Backend: POST /api/question (text)
+    Backend-->>Frontend: Answer (text)
+    Frontend->>User: Display answer
+```
