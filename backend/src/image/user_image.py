@@ -8,7 +8,7 @@ import requests
 from werkzeug.datastructures import FileStorage
 
 # local module
-from ..constants import API, PATH
+from src.constants import API, PATH
 from src.utils.misc import try_getenv
 
 
