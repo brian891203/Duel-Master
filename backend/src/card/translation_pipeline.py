@@ -28,7 +28,6 @@ class TranslationPipeline:
 
         return translated_text
 
-
 def normalize_punctuation(text: str) -> str:
     """中文標點符號標準化"""
     norm_map = {

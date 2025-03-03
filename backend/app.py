@@ -15,7 +15,7 @@ from src.constants import PATH
 from src.shared_types import FrontCardData, TranslateAPIResponse, QuestionAPIResponse
 from src.image.card_image import CardImage
 from src.image.user_image import UserImage
-from src.card.translation import TranslationPipeline, normalize_punctuation
+from src.card.translation_pipeline import TranslationPipeline, normalize_punctuation
 from src.card.text_extractor import OcrTextExtractor
 from src.card.translator import YugiohTranslator
 
