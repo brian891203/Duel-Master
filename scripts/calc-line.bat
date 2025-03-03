@@ -1,1 +1,1 @@
-cloc . --exclude-dir=node_modules,dist,public,.venv,assets --exclude-ext=yaml,json,svg,lock,toml,txt
+cloc . --exclude-dir=node_modules,dist,public,assets,.venv,.mypy_cache,__pycache__ --exclude-ext=yaml,json,svg,lock,toml,txt
