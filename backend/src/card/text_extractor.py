@@ -57,7 +57,7 @@ class OcrTextExtractor(AbstractTextExtractor):
         return operation_id
 
     def _poll_with_backoff(
-        self, operation_id, *, max_attempts: int = 10, initial_wait: int = 1
+        self, operation_id, *, max_attempts: int = 10, initial_wait: float = 1.0
     ):
         """向 Azure OCR API 不斷輪詢"""
         wait_time = initial_wait

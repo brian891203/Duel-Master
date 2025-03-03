@@ -7,7 +7,7 @@ load_dotenv()
 import logging
 
 # 3rd party library
-from flask import Flask, request, jsonify, send_file, send_from_directory
+from flask import Flask, Response, request, jsonify, send_file, send_from_directory
 from flask_cors import CORS
 
 # local module
@@ -27,13 +27,13 @@ CORS(app)
 
 # 翻譯 API
 @app.route("/api/translate", methods=["POST"])
-def translate_api():
+def translate_api() -> Response | tuple[Response, int]:
     if "image" not in request.files:
-        response: TranslateAPIResponse = {
+        error_response: TranslateAPIResponse = {
             "success": False,
             "errMessage": "No image file provided",
         }
-        return jsonify(response), 400
+        return jsonify(error_response), 400
 
     # 使用者上傳圖片在這裡
     image = request.files["image"]
@@ -55,45 +55,45 @@ def translate_api():
     user_image.remove()
 
     # 產生 response
-    response: TranslateAPIResponse = {
+    success_response: TranslateAPIResponse = {
         "success": True,
         "frontCardData": front_card_data,
     }
 
-    return jsonify(response)
+    return jsonify(success_response)
 
 
 # 問答 API
 @app.route("/api/question", methods=["POST"])
-def question_api():
+def question_api() -> Response | tuple[Response, int]:
     if not request.data:
-        response: QuestionAPIResponse = {
+        error_response: QuestionAPIResponse = {
             "success": False,
             "errMessage": "No question text provided",
         }
-        return jsonify(response), 400
+        return jsonify(error_response), 400
 
     # 問題在這裡
     question_text = request.data.decode("utf-8")
 
-    response: QuestionAPIResponse = {
+    success_response: QuestionAPIResponse = {
         "success": True,
         "answer": f"嗯...我知道你問了「{question_text}」，但拍謝，問答功能還在開發中噢！",
     }
 
-    return jsonify(response)
+    return jsonify(success_response)
 
 
 # 卡片材質 API
 @app.route("/api/assets/card-material/<path:filepath>")
-def serve_card_material(filepath: str):
+def serve_card_material(filepath: str) -> Response | tuple[Response, int]:
     return send_from_directory(PATH.YUGIOH_MATERIAL_DIR.value, filepath)
 
 
 # 卡面圖片 API
 @app.route("/api/assets/card-image/<image_id>")
-def serve_card_image(image_id: str):
-    
+def serve_card_image(image_id: str) -> Response | tuple[Response, int]:
+
     # 卡面圖片
     card_image = CardImage(image_id, logger=logger)
 
@@ -102,6 +102,7 @@ def serve_card_image(image_id: str):
         card_image.download()
 
     return send_file(card_image.local_path)
+
 
 if __name__ == "__main__":
     # 日誌
