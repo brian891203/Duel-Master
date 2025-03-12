@@ -76,28 +76,13 @@ cd frontend
 ```
 
 #### Using `npm`
-
-1. install dependencies
-    ```
-    npm install
-    ```
-
-2. run (development)
-    ```
-    npm run dev
-    ```
++ install dependencies: `npm install`
++ run (development): `npm run dev`
 
 #### Using `pnpm`
++ install dependencies: `pnpm install`
++ run (development): `pnpm dev`
 
-1. install dependencies
-    ```
-    pnpm install
-    ```
-
-2. run (development)
-    ```
-    pnpm dev
-    ```
 
 ### Backend
 
@@ -110,35 +95,17 @@ cd backend
 | `.env` 環境變數檔 (要放在 `backend` 目錄底下) 請和[我](mailto:rogeliokg0813@gmail.com)索取！ |
 
 #### Using `pip`
-1. run
++ run
+  + Windows: `scripts/run-backend-pip.bat`
+  + Linux: `source scripts/run-backend-pip.sh`
 
-    + Windows
-        ```bat
-        scripts/run-backend-pip.bat
-        ```
-
-    + Linux
-        ```bash
-        source scripts/run-backend-pip.sh
-        ```
-
-#### Using `poetry`
-1. run
-
-    + Windows
-        ```bat
-        scripts/run-backend.bat
-        ```
-
-    + Linux
-        ```bash
-        source scripts/run-backend.sh
-        ```
-
-2. freeze the requirements
-    ```
-    poetry export --without-hashes --format=requirements.txt > requirements.txt
-    ```
+#### Using `uv`
++ run
+  + Windows: `scripts/run-backend.bat`
+  + Linux: `source scripts/run-backend.sh`
++ freeze requirements
+  + Windows: `scripts/freeze-requirements.bat`
+  + Linux: `source scripts/freeze-requirements.sh`
 
 [`backend/assets/card-material`]: https://github.com/RogelioKG/Duel-Master/tree/main/backend/assets/card-material
 [`backend/model`]: https://github.com/RogelioKG/Duel-Master/tree/main/backend/model
@@ -174,14 +141,10 @@ dist/
 執行 `build` 指令後，所有前端程式碼，就會打包到 dist 目錄裡。
 
 #### Using `npm`
-```
-npm run build
-```
++ build: `npm run build`
 
 #### Using `pnpm`
-```
-pnpm build
-```
++ build: `pnpm build`
 
 
 

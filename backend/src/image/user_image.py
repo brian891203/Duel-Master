@@ -1,10 +1,10 @@
 # standard library
-from base64 import b64encode
 import json
 import os
-import requests
+from base64 import b64encode
 
 # 3rd party library
+import requests
 from werkzeug.datastructures import FileStorage
 
 # local module

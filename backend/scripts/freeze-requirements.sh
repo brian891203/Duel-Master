@@ -1,3 +1,3 @@
 #!/bin/bash
 
-poetry export --without-hashes --format=requirements.txt > requirements.txt
+uv export --no-hashes --frozen --format requirements-txt -o=requirements.txt

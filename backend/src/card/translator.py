@@ -1,10 +1,10 @@
 # standard library
-from abc import ABC, abstractmethod
 import logging
+from abc import ABC, abstractmethod
 
 # 3rd party library
 import torch
-from transformers import MT5ForConditionalGeneration, AutoTokenizer
+from transformers import AutoTokenizer, MT5ForConditionalGeneration
 
 # local module
 from src.constants import PATH
@@ -28,9 +28,7 @@ class YugiohTranslator(AbstractTranslator):
 
         # tokenizer
         self.logger.debug("[YugiohTranslator] - loading tokenizer...")
-        self._tokenizer = AutoTokenizer.from_pretrained(
-            self.model_path, trust_remote_code=True
-        )
+        self._tokenizer = AutoTokenizer.from_pretrained(self.model_path, trust_remote_code=True)
         self.logger.debug("[YugiohTranslator] - tokenizer ready")
 
         # model
@@ -68,9 +66,7 @@ class YugiohTranslator(AbstractTranslator):
             num_return_sequences=num_return_sequences,
         )
 
-        translated_text = [
-            self._tokenizer.decode(o, skip_special_tokens=True) for o in output
-        ][0]
+        translated_text = [self._tokenizer.decode(o, skip_special_tokens=True) for o in output][0]
 
         self.logger.debug(
             "[YugiohTranslator] - translation completed.\nResult:\n%s", translated_text

@@ -1,24 +1,22 @@
-# load environment variable
-from dotenv import load_dotenv
-
-load_dotenv()
-
 # standard library
 import logging
 
 # 3rd party library
-from flask import Flask, Response, request, jsonify, send_file, send_from_directory
+from dotenv import load_dotenv
+from flask import Flask, Response, jsonify, request, send_file, send_from_directory
 from flask_cors import CORS
 
-# local module
-from src.constants import PATH
-from src.shared_types import FrontCardData, TranslateAPIResponse, QuestionAPIResponse
-from src.image.card_image import CardImage
-from src.image.user_image import UserImage
-from src.card.translation_pipeline import TranslationPipeline, normalize_punctuation
-from src.card.text_extractor import OcrTextExtractor
-from src.card.translator import YugiohTranslator
+# load environment variable
+load_dotenv()
 
+# local module
+from src.card.text_extractor import OcrTextExtractor  # noqa: E402
+from src.card.translation_pipeline import TranslationPipeline, normalize_punctuation  # noqa: E402
+from src.card.translator import YugiohTranslator  # noqa: E402
+from src.constants import PATH  # noqa: E402
+from src.image.card_image import CardImage  # noqa: E402
+from src.image.user_image import UserImage  # noqa: E402
+from src.shared_types import FrontCardData, QuestionAPIResponse, TranslateAPIResponse  # noqa: E402
 
 # app
 app = Flask(__name__)
@@ -93,7 +91,6 @@ def serve_card_material(filepath: str) -> Response | tuple[Response, int]:
 # 卡面圖片 API
 @app.route("/api/assets/card-image/<image_id>")
 def serve_card_image(image_id: str) -> Response | tuple[Response, int]:
-
     # 卡面圖片
     card_image = CardImage(image_id, logger=logger)
 

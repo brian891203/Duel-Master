@@ -1,6 +1,6 @@
 # standard library
-import os
 import logging
+import os
 
 # 3rd party library
 import requests
@@ -35,9 +35,7 @@ class CardImage:
             response = requests.get(self.image_url)
             response.raise_for_status()
         except requests.exceptions.RequestException as e:
-            self.logger.error(
-                f"Error downloading image {self.card_id}. Error Message - {e}"
-            )
+            self.logger.error(f"Error downloading image {self.card_id}. Error Message - {e}")
             return False
         else:
             with open(self.local_path, "wb") as file:
@@ -51,6 +49,4 @@ class CardImage:
             os.remove(self.local_path)
             self.logger.debug(f"Image {self.card_id} removed from local storage.")
         else:
-            self.logger.warning(
-                f"Attempted to remove {self.card_id}, but file does not exist."
-            )
+            self.logger.warning(f"Attempted to remove {self.card_id}, but file does not exist.")

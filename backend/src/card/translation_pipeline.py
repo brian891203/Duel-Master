@@ -1,5 +1,5 @@
 # standard library
-from typing import Callable
+from collections.abc import Callable
 
 # local module
 from .text_extractor import AbstractTextExtractor
@@ -27,6 +27,7 @@ class TranslationPipeline:
             translated_text = postprocess_hook(translated_text)
 
         return translated_text
+
 
 def normalize_punctuation(text: str) -> str:
     """中文標點符號標準化"""

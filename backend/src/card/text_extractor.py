@@ -1,9 +1,9 @@
 # standard library
-from abc import ABC, abstractmethod
 import logging
 import random
 import re
 import time
+from abc import ABC, abstractmethod
 
 # 3rd party library
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient

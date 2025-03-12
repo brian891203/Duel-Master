@@ -1,4 +1,4 @@
-from typing import TypedDict, Literal
+from typing import Literal, TypedDict
 
 # Enums (FRONT)
 Language = Literal["sc", "tc", "jp", "kr", "en", "astral"]  # ! Only keep "sc"
@@ -7,9 +7,7 @@ Align = Literal["left", "center", "right", ""]
 Type = Literal["monster", "spell", "trap", "pendulum"]
 Attribute = Literal["dark", "light", "earth", "water", "fire", "wind", "divine", ""]
 Icon = Literal["equip", "field", "quick-play", "ritual", "continuous", "counter", ""]
-CardType = Literal[
-    "normal", "effect", "ritual", "fusion", "synchro", "xyz", "link", "token"
-]
+CardType = Literal["normal", "effect", "ritual", "fusion", "synchro", "xyz", "link", "token"]
 PendulumType = Literal[
     "normal-pendulum",
     "effect-pendulum",
@@ -28,14 +26,10 @@ BackType = Literal["normal", "tormentor", "sky-dragon", "winged-dragon"]
 Logo = Literal["ocg", "tcg", "rd"]
 
 
-CardData = TypedDict(
-    "CardData",
-    {
-        "radius": bool,
-        "scale": float,
-    },
-    total=False,
-)
+class CardData(TypedDict, total=False):
+    radius: bool
+    scale: float
+
 
 FrontCardData = TypedDict(
     "FrontCardData",
@@ -80,18 +74,14 @@ FrontCardData = TypedDict(
     total=False,
 )
 
-BackCardData = TypedDict(
-    "BackCardData",
-    {
-        "type": BackType,
-        "logo": Logo,
-        "konami": bool,
-        "register": bool,
-        "radius": bool,
-        "scale": float,
-    },
-    total=False,
-)
+
+class BackCardData(TypedDict, total=False):
+    type: BackType
+    logo: Logo
+    konami: bool
+    register: bool
+    radius: bool
+    scale: float
 
 
 # TranslateAPIResponse

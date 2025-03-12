@@ -1,4 +1,4 @@
 #!/bin/bash
 
-poetry install
-poetry run python app.py
+uv sync
+uv run app.py
