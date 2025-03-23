@@ -1,14 +1,14 @@
-:: create virtual environment
-if not exist .venv (
-  python -m venv .venv
-)
+@REM :: create virtual environment
+@REM if not exist .venv (
+@REM   python -m venv .venv
+@REM )
 
 :: activate virtual environment
 call .venv\Scripts\activate
 
-:: install dependencies
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
-pip install -r requirements.txt
+@REM :: install dependencies
+@REM pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+@REM pip install -r requirements.txt
 
 :: run the app
 python app.py
