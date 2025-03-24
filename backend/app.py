@@ -102,8 +102,8 @@ def serve_card_image(image_id: str) -> Response | tuple[Response, int]:
 
 @app.route("/api/shutdown", methods=["POST"])
 def shutdown_api():
-        import os
-        os._exit(0)
+    import os
+    os._exit(0)
 
 
 if __name__ == "__main__":
