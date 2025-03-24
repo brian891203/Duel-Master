@@ -6,6 +6,7 @@
 test
 test
 test
+test
 
 ## ⚡ Brief
 An AI-powered chatroom for translating Yu-Gi-Oh cards and answering related questions.
