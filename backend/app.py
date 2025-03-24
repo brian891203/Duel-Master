@@ -100,6 +100,10 @@ def serve_card_image(image_id: str) -> Response | tuple[Response, int]:
 
     return send_file(card_image.local_path)
 
+@app.route("/api/shutdown", methods=["POST"])
+def shutdown_api():
+        os._exit(0)
+
 
 if __name__ == "__main__":
     # 日誌
