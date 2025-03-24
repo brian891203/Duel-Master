@@ -4,12 +4,6 @@
 [![Licence](https://img.shields.io/github/license/RogelioKG/Duel-Master)](./LICENSE)
 
 test
-test
-test
-test
-test
-test
-test
 
 ## ⚡ Brief
 An AI-powered chatroom for translating Yu-Gi-Oh cards and answering related questions.
